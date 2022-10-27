@@ -1,0 +1,49 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% include "partials/head.html" %}
+
+    <!-- additional head elements -->
+    {% block head %}{% endblock %}
+</head>
+
+<body id="top">
+
+    <!-- go to Top button -->
+    <a href="#top" id="btn-top" class="bg-warning text-center"><i class="fas fa-chevron-up"></i> TOP</a>
+
+    <!-- preloader -->
+    {% include "partials/preloader.html" %}
+
+    <!-- overlay -->
+    <aside id="overlay" class="hide"></aside>
+
+    <!-- header / navbar -->
+    {% include "partials/navbar.html" %}
+
+    <!-- messages -->
+    {% include "partials/messages.html" %}
+
+    <!-- main content -->
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- footer -->
+    {% include "partials/footer.html" %}
+
+    <!-- banner for coookie -->
+    {% include "partials/cookies_banner.html" %}
+
+    <!-- scripts -->
+    {% include "partials/scripts.html" %}
+
+    <!-- extra js -->
+    {% block js %}{% endblock %}
+
+</body>
+</html>
