@@ -1,0 +1,131 @@
+{% load static %}
+{% load custom_filters %}
+
+<header id="navbar-header">
+    <!-- nav -->
+    <nav class="navbar navbar-expand-md navbar-dark">
+        <div class="container-sm">
+            <!-- logo -->
+            <a href="{% url 'home' %}" class="navbar-brand navbar-brand-pos fs-2 w-50 align-middle me-auto font-jura text-shadow">
+                <!-- mobile logo image -->
+                <img src="{% static 'img/logo.png' %}" alt="Binge Traveller" class="bt-logo responsive-img me-3 h-25 d-inline-block d-lg-none">
+                Binge Traveller
+            </a>
+            <!-- non-mobile logo image -->
+            <img src="{% static 'img/logo.png' %}" alt="Binge Traveller" class="bt-logo responsive-img me-3 h-25 d-none d-lg-inline-block">
+
+            <!-- desktop nav links -->
+            <ul class="navbar-nav ms-auto d-none d-lg-flex font-spinnaker">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact</a>
+                </li>
+                {% if request.user.is_authenticated %}
+                    <!-- user is logged-in -->
+                    <li class="nav-item ms-3">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0 font-spinnaker">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-user-cog fa-fw fa-lg"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark">
+                                    <li><span class="list-group-item bg-dark text-center font-jura">ADMIN-ONLY</span></li>
+                                    {% if request.user|has_group:"Site Admin" %}
+                                        <!-- user is a Site Admin -->
+                                        <li><a class="dropdown-item" href="#">Manage Blog</a></li>
+                                    {% endif %}
+                                    {% if request.user.is_superuser %}
+                                        <!-- user is superuser/dev -->
+                                        <li><a class="dropdown-item" href="{% url 'admin:index' %}" target="_blank" rel="noopener">Django Admin</a></li>
+                                    {% endif %}
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="{% url 'account_logout' %}">Logout</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <li class="nav-item ms-3">
+                        <a class="nav-link" href="{% url 'account_login' %}">
+                            <i class="fas fa-user fa-fw fa-lg"></i>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <!-- offcanvas toggle button -->
+                    <button id="offcanvas-toggle-btn" class="btn btn-dark d-block d-lg-none" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<!-- offcanvas menu -->
+<aside class="offcanvas offcanvas-end border-0" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header my-3 text-center">
+        <h3 id="offcanvasRightLabel" class="m-0 mx-auto p-0 font-jura">
+            <a href="{% url 'home' %}" class="text-white">
+                Binge Traveller
+            </a>
+        </h3>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body m-0 p-0">
+
+        <!-- links -->
+        <div id="offcanvas-list-group" class="list-group list-group-flush font-spinnaker">
+            <a href="{% url 'home' %}" class="list-group-item list-group-item-action list-group-item-secondary border-0" id="nav-link-home">
+                <i class="fas fa-home fa-fw fs-5 me-3"></i>
+                Home
+            </a>
+            <a href="" class="list-group-item list-group-item-action list-group-item-secondary border-0" id="nav-link-about">
+                <i class="fas fa-info-circle fa-fw fs-5 me-3"></i>
+                About Me
+            </a>
+            <a href="" class="list-group-item list-group-item-action list-group-item-secondary border-0" id="nav-link-about">
+                <i class="fas fa-blog fa-fw fs-5 me-3"></i>
+                Blog
+            </a>
+            <a href="" class="list-group-item list-group-item-action list-group-item-secondary border-0" id="nav-link-contact">
+                <i class="fas fa-at fa-fw fs-5 me-3"></i>
+                Contact
+            </a>
+
+            {% if request.user.is_authenticated %}
+                <!-- user is logged-in -->
+                <span class="list-group-item bg-bt-primary-dark text-white text-center">ADMIN</span>
+                {% if request.user|has_group:"Site Admin" %}
+                    <!-- user is a Site Admin -->
+                    <a href="" class="list-group-item list-group-item-action list-group-item-secondary border-0" id="nav-link-manage">
+                        <i class="fas fa-tasks fa-fw fs-5 me-3"></i>
+                        Manage Blog
+                    </a>
+                {% endif %}
+                {% if request.user.is_superuser %}
+                    <!-- user is superuser/dev -->
+                    <a href="{% url 'admin:index' %}" class="list-group-item list-group-item-action list-group-item-secondary border-0"
+                        target="_blank" rel="noopener">
+                        <i class="fas fa-user-cog fa-fw fs-5 me-3"></i>
+                        Django Admin
+                    </a>
+                {% endif %}
+                <a href="{% url 'account_logout' %}" class="list-group-item list-group-item-action list-group-item-secondary border-0">
+                    <i class="fas fa-sign-out-alt fa-fw fs-5 me-3"></i>
+                    Logout
+                </a>
+            {% endif %}
+
+        </div>
+
+    </div>
+</aside>
