@@ -7,8 +7,8 @@ from .views import handler404, handler500
 
 urlpatterns = [
     path(f"{os.environ.get('ADMIN_URL')}/", admin.site.urls),
-    path("profile/", include("accounts.urls")),
     path(f"{os.environ.get('AUTH_URL')}/", include("allauth.urls")),
+    path("profile/", include("accounts.urls")),
     path("tinymce/", include("tinymce.urls")),
     path("", include("home.urls")),
     path("about/", include("about.urls")),
