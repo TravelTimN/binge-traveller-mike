@@ -2,5 +2,39 @@
 {% load static %}
 
 {% block content %}
-    Success!
+    <!-- home hero image -->
+    <section id="home-hero-img" class="container-fluid parallax m-0 p-0">
+        <div id="home-hero-overlay" class="row m-0 p-0">
+            <div class="col-12 m-0 p-0 text-center text-white text-shadow">
+                <div class="row m-0 p-0">
+                    <div class="col-12">
+                        <h1 id="main-heading" class="display-1 my-5 font-jura">
+                            Binge Traveller
+                        </h1>
+                        <p class="tagline fs-1 mx-0 mx-md-5">
+                            Fáilte! Welcome! Bienvenue! Willkommen!
+                            <br class="d-none d-sm-block">
+                            Witaj! Bienvenido! Benvenuto! Welkom!
+                        </p>
+                        <br><br>
+                        <p class="tagline mx-0 mx-md-5">
+                            An authentic, raw, unfiltered travel blog featuring travel tips, travel inspiration, photography, and videos from around the world.
+                        </p>
+                        <p class="tagline mx-0 mx-md-5">
+                            For solo travellers, and the LGBTQ+ community.
+                        </p>
+                    </div>
+                </div>
+                <div class="row position-absolute bottom-0 start-50 end-50 d-none d-sm-flex">
+                    <div class="col-12 mb-5">
+                        <a href="#next" class="fs-1">
+                            <i class="fas fa-chevron-down text-white" id="home-hero-caret-down"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="next"></section>
 {% endblock %}
