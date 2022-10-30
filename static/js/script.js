@@ -18,6 +18,15 @@ $(document).ready(function() {
 });
 
 
+/* ----- PARALLAX ----- */
+
+$(window).scroll(function(e) {
+    // parallax effect
+    let scroll = $(this).scrollTop();
+    $(".parallax").css({"background-position": `50% ${scroll/-2}px`});
+});
+
+
 /* ----- TO TOP BUTTON ----- */
 
 // scroll to top button

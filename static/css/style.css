@@ -43,6 +43,10 @@ a, a:hover {
     color: inherit;
 }
 
+.scroll-margin-top {
+    scroll-margin-top: 4.5em;
+}
+
 /* FONTS */
 .font-jura {font-family: "Jura", sans-serif;}
 .font-spinnaker {font-family: "Spinnaker", sans-serif;}
@@ -82,6 +86,12 @@ a, a:hover {
         -8px 7px rgba(var(--black), 0.1);
 }
 
+.text-rainbow {
+    background-image: linear-gradient(to right, #f22,  #ff2, #2f2, #2ff, #f2f);
+    color: transparent;
+    -webkit-background-clip: text;
+}
+
 textarea {
     min-height: 150px !important;
 }
@@ -96,7 +106,7 @@ header#navbar-header {
     position: sticky;
     top: 0;
     min-height: 76px;
-    z-index: 999;
+    z-index: 1001;
     transition: all 0.2s ease-in-out;
 }
 
@@ -117,9 +127,23 @@ nav.navbar * {
     text-shadow: 2px 2px 2px rgba(var(--black), 0.75);
 }
 
+.navbar-nav .nav-item {
+    letter-spacing: 2px;
+}
+
 .bt-logo {
     max-height: 50px;
     max-width: 25vw;
+}
+
+#offcanvas-toggle-btn {
+    background-color: rgba(var(--bt-primary), 1);
+    /* background-color: rgba(var(--white), 1); */
+}
+
+#offcanvas-toggle-btn i.fas.fa-bars {
+    color: rgba(0, 0, 0, 1);
+    text-shadow: none;
 }
 
 #offcanvasRight {
@@ -148,7 +172,7 @@ aside#preloader-container {
     position: absolute;
     top: 125px;
     left: 125px;
-    margin: -50px 0 0 -50px;
+    margin: -50px 0 0 -49px;
     font-size: 5em;
 }
 
@@ -292,13 +316,15 @@ aside#overlay.hide {
 #btn-top {
     cursor: pointer;
     position: fixed;
-    border-radius: 8px;
     padding: 0.5em;
-    bottom: -3em;
-    left: 0.5em;
+    bottom: -5em;
+    left: 50%;
+    transform: translateX(-50%);
     font-weight: bold;
     opacity: 0.75;
     z-index: 1000;
+    border-radius: 8px;
+    border: 2px solid rgba(var(--bt-primary-darkest), 1);
     transition: all 0.5s ease-in-out;
 }
 
@@ -313,21 +339,25 @@ aside#overlay.hide {
 }
 
 /* HOME */
-.parallax,
-.parallax-fixed {
+.parallax {
     background-position: center top;
     background-size: cover;
     background-repeat: no-repeat;
 }
 
-.parallax-fixed {
-    background-attachment: fixed;
+.parallax-text-container {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 3vw;
+    letter-spacing: 1.5vw;
 }
 
 #home-hero-img {
     min-height: 100vh;
     background-image: url("../img/hero.webp");
-    background-position: center center;
+    background-position: 50% 0px;
+    background-attachment: fixed;
 }
 
 #home-hero-overlay {
@@ -337,6 +367,13 @@ aside#overlay.hide {
 
 .tagline {
     font-size: calc(1rem + 1vw);
+}
+
+#hero-caret {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 #home-hero-caret-down {
@@ -356,17 +393,78 @@ aside#overlay.hide {
     100% {opacity: 0.8; transform: scale(1);}
 }
 
-.parallax-text-container {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 3vw;
-    letter-spacing: 1.5vw;
+/* youtube embed, world map */
+#yt-embed,
+#world-map {
+    padding: 10vw calc(var(--bs-gutter-x) * .5);
+    background-image: linear-gradient(180deg, rgba(var(--bt-primary-darkest), 1), rgba(var(--bt-primary), 1), rgba(var(--bt-primary-darkest), 1));
 }
 
-.text-parallax-fixed {
-    opacity: 0.85;
-    text-shadow: 2px 2px 2px rgba(var(--black), 1);
+.iframe-container {
+    position: relative;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio (9/16 = 0.5625) */
+}
+
+.iframe-responsive {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* drinks gallery */
+#drink-gallery figure {
+    position: relative;
+    overflow: hidden;
+    object-fit: cover;
+}
+
+figure.drinks-gallery-img figcaption {
+	position: absolute;
+	display: block;
+	text-align: center;
+	background: rgba(var(--white), 1);
+	padding: 15px;
+	width: 100%;
+	max-height: 100%;
+	overflow: hidden;
+	opacity: 0;
+	top: 50%;
+	left: 0;
+    font-weight: bold;
+    font-family: "Jura", sans-serif;
+	transform: translate3d(-100%, -50%, 0);
+	transition: all 0.5s ease-in-out;
+}
+
+figure.drinks-gallery-img img {
+	transform: translate3d(0, 0, 0);
+	transition: all 0.5s ease-in-out;
+}
+
+figure.drinks-gallery-img figcaption {
+	top: 100%;
+	opacity: 1;
+	transform: translate3d(0, 0, 0);
+}
+
+figure.drinks-gallery-img:hover img {
+	transform: translate3d(0, -20px, 0);
+    opacity: 0.5;
+}
+
+figure.drinks-gallery-img:hover figcaption {
+	transform: translate3d(0, -100%, 0);
+	transition: all 0.5s ease-in-out;
+    box-shadow: 0px -2px 28px rgba(var(--black), 0.3);
+}
+
+/* world-map */
+#map {
+    height: 60vh;
 }
 
 /* FOOTER */
@@ -448,6 +546,16 @@ footer .fas:hover {
     /* navbar */
     #navbar-logo-text {
         font-size: 2vw;
+    }
+
+    /* youtube */
+    #yt-embed {
+        padding: 10vw 15vw;
+    }
+
+    /* world map */
+    #world-map {
+        padding: 10vw 5vw;
     }
 }
 
