@@ -8,7 +8,7 @@
             <!-- logo -->
             <a href="{% url 'home' %}" class="navbar-brand align-middle  font-jura text-shadow">
                 <!-- mobile logo image -->
-                <img src="{% static 'img/binge-marker.png' %}" alt="Binge Traveller" class="bt-logo responsive-img">
+                <img src="{% static 'img/binge-marker.png' %}" alt="Binge Traveller" class="bt-logo img-fluid">
                 <span id="navbar-logo-text" class="d-inline-block align-middle">
                     Binge<br class="d-block d-md-none"> Traveller
                 </span>
@@ -16,6 +16,9 @@
 
             <!-- desktop nav links -->
             <ul class="navbar-nav ms-auto d-none d-lg-flex font-spinnaker">
+                <li class="nav-item">
+                    <a class="nav-link mx-2" href="{% url 'home' %}"><i class="fas fa-home fa-fw fa-lg"></i></a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link mx-2" href="#">About</a>
                 </li>
