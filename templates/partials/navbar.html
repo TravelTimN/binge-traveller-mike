@@ -6,24 +6,24 @@
     <nav class="navbar navbar-expand-md navbar-dark">
         <div class="container-sm">
             <!-- logo -->
-            <a href="{% url 'home' %}" class="navbar-brand navbar-brand-pos fs-2 w-50 align-middle me-auto font-jura text-shadow">
+            <a href="{% url 'home' %}" class="navbar-brand align-middle  font-jura text-shadow">
                 <!-- mobile logo image -->
-                <img src="{% static 'img/logo.png' %}" alt="Binge Traveller" class="bt-logo responsive-img me-3 h-25 d-inline-block d-lg-none">
-                Binge Traveller
+                <img src="{% static 'img/binge-marker.png' %}" alt="Binge Traveller" class="bt-logo responsive-img">
+                <span id="navbar-logo-text" class="d-inline-block align-middle">
+                    Binge<br class="d-block d-md-none"> Traveller
+                </span>
             </a>
-            <!-- non-mobile logo image -->
-            <img src="{% static 'img/logo.png' %}" alt="Binge Traveller" class="bt-logo responsive-img me-3 h-25 d-none d-lg-inline-block">
 
             <!-- desktop nav links -->
             <ul class="navbar-nav ms-auto d-none d-lg-flex font-spinnaker">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
+                    <a class="nav-link mx-2" href="#">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Blog</a>
+                    <a class="nav-link mx-2" href="#">Blog</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
+                    <a class="nav-link mx-2" href="#">Contact</a>
                 </li>
                 {% if request.user.is_authenticated %}
                     <!-- user is logged-in -->
@@ -34,7 +34,6 @@
                                     <i class="fas fa-user-cog fa-fw fa-lg"></i>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark">
-                                    <li><span class="list-group-item bg-dark text-center font-jura">ADMIN-ONLY</span></li>
                                     {% if request.user|has_group:"Site Admin" %}
                                         <!-- user is a Site Admin -->
                                         <li><a class="dropdown-item" href="#">Manage Blog</a></li>
