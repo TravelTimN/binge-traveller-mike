@@ -3,7 +3,7 @@
 
 {% block content %}
     <!-- home hero image -->
-    <section id="home-hero-img" class="container-fluid parallax m-0 p-0">
+    <section id="home-hero-img" class="container-fluid parallax shadow m-0 p-0">
         <div id="home-hero-overlay" class="row m-0 p-0">
             <div class="col-12 m-0 p-0 text-center text-white text-shadow">
                 <div class="row m-0 p-0">
@@ -21,13 +21,13 @@
                             An authentic, raw, unfiltered travel blog featuring travel tips, travel inspiration, photography, and videos from around the world.
                         </p>
                         <p class="tagline mx-0 mx-md-5">
-                            For solo travellers, and the LGBTQ+ community.
+                            For solo travellers, and the <span class="text-rainbow">LGBTQ+</span> community.
                         </p>
                     </div>
                 </div>
-                <div class="row position-absolute bottom-0 start-50 end-50 d-none d-sm-flex">
-                    <div class="col-12 mb-5">
-                        <a href="#next" class="fs-1">
+                <div class="row d-none d-sm-flex m-0 p-0" id="hero-caret">
+                    <div class="col-12">
+                        <a href="#meet" class="fs-1">
                             <i class="fas fa-chevron-down text-white" id="home-hero-caret-down"></i>
                         </a>
                     </div>
@@ -36,5 +36,342 @@
         </div>
     </section>
 
-    <section id="next"></section>
+    <!-- meet mike -->
+    <section id="meet" class="container-fluid py-5 scroll-margin-top">
+        <div class="row text-center">
+            <div class="col-12 col-lg-6 order-2 order-lg-1">
+                <img src="{% static 'img/mike/greece.webp' %}" alt="Mike in Greece" class="img-fluid rounded shadow">
+            </div>
+            <div class="col-12 col-lg-6 d-flex flex-column align-items-center align-self-center order-1 order-lg-2 mb-5 mb-lg-0">
+                <h2 class="display-4 font-jura">Meet Mike</h2>
+                <p class="fs-4 my-4 px-3 px-lg-5">
+                    Curious to know where it all began, and how my love for travel became so important in my life?
+                    Have a read about my fondest childhood memories, which over the years turned into a lifelong passion.
+                    Find out how where the inspiration came from for creating this blog, and how I hope it inspires you!
+                </p>
+                <a href="" class="btn btn-lg btn-primary mx-auto text-shadow">Read More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- youtube embed -->
+    <section id="yt-embed" class="container-fluid bg-bt-primary border-5 border-top border-bottom border-info shadow">
+        <div class="row text-center">
+            <figure class="col-12 iframe-container">
+                <iframe src="https://www.youtube.com/embed/F1ORrOZSzxM" title="Binge Traveller on YouTube" class="iframe-responsive rounded shadow"
+                    allow="encrypted-media;" allowfullscreen></iframe>
+                <figcaption>Mike's Adventures</figcaption>
+            </figure>
+        </div>
+    </section>
+
+    <!-- instagram drinks gallery -->
+    <section class="container-fluid py-5">
+        <div class="row my-5">
+            <div class="col-12 mx-auto text-center">
+                <h2 class="display-4 font-jura">Follow me on Instagram</h2>
+                <a href="https://www.instagram.com/bingetraveller_mike" target="_blank" rel="noreferrer nofollow" class="my-3">
+                    <span class="badge rounded-pill text-bg-primary fs-6">@bingetraveller_mike</span>
+                </a>
+            </div>
+        </div>
+        <div class="row d-flex flex-wrap" id="drink-gallery">
+            <figure class="col-12 col-sm-6 col-md-4 col-lg-3 drinks-gallery-img">
+                <img src="{% static 'img/mike/drinks/andorra-beer.jpg' %}" alt="Mike in Andorra with beer" class="mt-3 align-middle w-100 img-fluid">
+                <figcaption>In Andorra with beer</figcaption>
+            </figure>
+            <figure class="col-12 col-sm-6 col-md-4 col-lg-3 drinks-gallery-img">
+                <img src="{% static 'img/mike/drinks/belgium-cherry-beer.jpg' %}" alt="Mike in Belgium with beer" class="mt-3 align-middle w-100 img-fluid">
+                <figcaption>In Belgium with beer</figcaption>
+            </figure>
+            <figure class="col-12 col-sm-6 col-md-4 col-lg-3 drinks-gallery-img">
+                <img src="{% static 'img/mike/drinks/bordeaux-white.jpg' %}" alt="Mike in Bordeaux with white wine" class="mt-3 align-middle w-100 img-fluid">
+                <figcaption>In Bordeaux with white wine</figcaption>
+            </figure>
+            <figure class="col-12 col-sm-6 col-md-4 col-lg-3 drinks-gallery-img">
+                <img src="{% static 'img/mike/drinks/bordeaux-wines.jpg' %}" alt="Mike in Bordeaux at La Cité du Vin" class="mt-3 align-middle w-100 img-fluid">
+                <figcaption>In Bordeaux at La Cité du Vin</figcaption>
+            </figure>
+            <figure class="col-12 col-sm-6 col-md-4 col-lg-3 drinks-gallery-img">
+                <img src="{% static 'img/mike/drinks/cologne-frueh.jpg' %}" alt="Mike in Cologne with beer" class="mt-3 align-middle w-100 img-fluid">
+                <figcaption>In Cologne with Früh Kölsch</figcaption>
+            </figure>
+            <figure class="col-12 col-sm-6 col-md-4 col-lg-3 drinks-gallery-img">
+                <img src="{% static 'img/mike/drinks/cologne-radeberger.jpg' %}" alt="Mike in Cologne with beer" class="mt-3 align-middle w-100 img-fluid">
+                <figcaption>In Cologne with Redeberger</figcaption>
+            </figure>
+            <figure class="col-12 col-sm-6 col-md-4 col-lg-3 drinks-gallery-img">
+                <img src="{% static 'img/mike/drinks/dublin-birra-moretti.jpg' %}" alt="Mike in Dublin with beer" class="mt-3 align-middle w-100 img-fluid">
+                <figcaption>In Dublin with Birra Moretti</figcaption>
+            </figure>
+            <figure class="col-12 col-sm-6 col-md-4 col-lg-3 drinks-gallery-img">
+                <img src="{% static 'img/mike/drinks/dublin-guinness-01.jpg' %}" alt="Mike in Dublin with Guinness" class="mt-3 align-middle w-100 img-fluid">
+                <figcaption>In Dublin with Guinness</figcaption>
+            </figure>
+            <figure class="col-12 col-sm-6 col-md-4 col-lg-3 drinks-gallery-img">
+                <img src="{% static 'img/mike/drinks/dublin-guinness-02.jpg' %}" alt="Mike in Dublin with Guinness" class="mt-3 align-middle w-100 img-fluid">
+                <figcaption>In Dublin with Guinness</figcaption>
+            </figure>
+            <figure class="col-12 col-sm-6 col-md-4 col-lg-3 drinks-gallery-img">
+                <img src="{% static 'img/mike/drinks/dublin-paddys-day-rose.jpg' %}" alt="Mike in Dublin with rose wine" class="mt-3 align-middle w-100 img-fluid">
+                <figcaption>In Dublin with rose wine</figcaption>
+            </figure>
+            <figure class="col-12 col-sm-6 col-md-4 col-lg-3 drinks-gallery-img">
+                <img src="{% static 'img/mike/drinks/dublin-rose.jpg' %}" alt="Mike in Dublin with rose wine" class="mt-3 align-middle w-100 img-fluid">
+                <figcaption>In Dublin with rose wine</figcaption>
+            </figure>
+            <figure class="col-12 col-sm-6 col-md-4 col-lg-3 drinks-gallery-img">
+                <img src="{% static 'img/mike/drinks/dublin-whiskey.jpg' %}" alt="Mike in Dublin with whiskey" class="mt-3 align-middle w-100 img-fluid">
+                <figcaption>In Dublin with whiskey</figcaption>
+            </figure>
+            <figure class="col-12 col-sm-6 col-md-4 col-lg-3 drinks-gallery-img">
+                <img src="{% static 'img/mike/drinks/dublin-white-wine.jpg' %}" alt="Mike in Dublin with white wine" class="mt-3 align-middle w-100 img-fluid">
+                <figcaption>In Dublin with white wine</figcaption>
+            </figure>
+            <figure class="col-12 col-sm-6 col-md-4 col-lg-3 drinks-gallery-img">
+                <img src="{% static 'img/mike/drinks/gdansk-tyskie.jpg' %}" alt="Mike in Gdansk with beer" class="mt-3 align-middle w-100 img-fluid">
+                <figcaption>In Gdansk with Tyskie</figcaption>
+            </figure>
+            <figure class="col-12 col-sm-6 col-md-4 col-lg-3 drinks-gallery-img">
+                <img src="{% static 'img/mike/drinks/greece-beer.jpg' %}" alt="Mike in Greece with beer" class="mt-3 align-middle w-100 img-fluid">
+                <figcaption>In Greece with beer</figcaption>
+            </figure>
+            <figure class="col-12 col-sm-6 col-md-4 col-lg-3 drinks-gallery-img">
+                <img src="{% static 'img/mike/drinks/greece-metaxa.jpg' %}" alt="Mike in Greece with beer" class="mt-3 align-middle w-100 img-fluid">
+                <figcaption>In Greece with Metaxa</figcaption>
+            </figure>
+            <figure class="col-12 col-sm-6 col-md-4 col-lg-3 drinks-gallery-img">
+                <img src="{% static 'img/mike/drinks/greece-pilsner.jpg' %}" alt="Mike in Greece with beer" class="mt-3 align-middle w-100 img-fluid">
+                <figcaption>In Greece with Pilsner</figcaption>
+            </figure>
+            <figure class="col-12 col-sm-6 col-md-4 col-lg-3 drinks-gallery-img">
+                <img src="{% static 'img/mike/drinks/iberia-express.jpg' %}" alt="Mike on airplane with white wine" class="mt-3 align-middle w-100 img-fluid">
+                <figcaption>On Iberia Express with white wine</figcaption>
+            </figure>
+            <figure class="col-12 col-sm-6 col-md-4 col-lg-3 drinks-gallery-img">
+                <img src="{% static 'img/mike/drinks/madrid-rioja.jpg' %}" alt="Mike in Madrid with red wine" class="mt-3 align-middle w-100 img-fluid">
+                <figcaption>In Madrid with Rioja</figcaption>
+            </figure>
+            <figure class="col-12 col-sm-6 col-md-4 col-lg-3 drinks-gallery-img">
+                <img src="{% static 'img/mike/drinks/mexico-pulque.jpg' %}" alt="Mike in Mexico with pulque" class="mt-3 align-middle w-100 img-fluid">
+                <figcaption>In Mexico with Pulque</figcaption>
+            </figure>
+            <figure class="col-12 col-sm-6 col-md-4 col-lg-3 drinks-gallery-img">
+                <img src="{% static 'img/mike/drinks/nuernberg-bier.jpg' %}" alt="Mike in Nürnberg with beer" class="mt-3 align-middle w-100 img-fluid">
+                <figcaption>In Nürnberg with beer</figcaption>
+            </figure>
+            <figure class="col-12 col-sm-6 col-md-4 col-lg-3 drinks-gallery-img">
+                <img src="{% static 'img/mike/drinks/zurich-amber.jpg' %}" alt="Mike in Zurich with amber beer" class="mt-3 align-middle w-100 img-fluid">
+                <figcaption>In Zurich with amber beer</figcaption>
+            </figure>
+        </div>
+    </section>
+
+    <!-- travel map -->
+    <section id="world-map" class="container-fluid bg-bt-primary border-5 border-top border-bottom border-info shadow">
+        <div class="row my-3 my-lg-5 mt-0">
+            <div class="col-12 mx-auto text-center">
+                <h2 class="display-4 font-jura text-white">Check out my travel map</h2>
+            </div>
+        </div>
+        <div class="row text-center">
+            <div class="col-12">
+                <div id="map" class="rounded shadow"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- flight memory -->
+    <section class="container-fluid py-5">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="display-4 font-jura">Check out my flight history</h2>
+                <a href="https://my.flightmemory.com/N272WA" target="_blank" rel="noreferrer nofollow">
+                    <img src="https://my.flightmemory.com/image/N272WA.gif" alt="Mike's Flight Memory tracker" class="img-fluid my-5">
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-lg-8 offset-lg-2 text-center fs-4">
+                <p class="mx-lg-5">
+                    Track my total flight distances, flight times, top ten airports, top ten airlines, top ten aircraft, top ten routes, and much more!
+                </p>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+
+<!-- TODO: this needs to be converted into a manageable model for Mike, not hard-coded: See Issue #8 -->
+<!-- TODO: https://github.com/TravelTimN/binge-traveller-mike/issues/8 -->
+{% block js %}
+    <script>
+        const mapUrl = `{{ map_url }}`;
+
+        // basic leaflet map of world
+        let map = L.map("map", {
+            scrollWheelZoom: false,
+            minZoom: 2,
+            maxZoom: 18,
+            maxBounds: [[-75, -190], [90, 190]],
+            maxBoundsViscosity: 0.5,
+        }).setView([23.5, 12], 2);
+
+        // map tile layers / default setup
+        let mapTileLayers = L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}`, {
+            attribution: "Map data &copy; <a href='https://www.openstreetmap.org/copyright' target='_blank' rel='noopener'>OpenStreetMap</a> contributors, Imagery © <a href='https://www.mapbox.com' target='_blank' rel='noopener'>Mapbox</a>",
+            id: "mapbox/streets-v11",
+            tileSize: 512,
+            zoomOffset: -1,
+            accessToken: mapUrl
+        }).addTo(map);
+
+        // add custom marker icon
+        let customIcon = L.Icon.extend({
+            options: {
+                iconSize: [25, 35],
+                iconAnchor: [12.5, 35],
+            }
+        });
+        let bingeIcon = new customIcon({iconUrl: `{% static 'img/binge-map-marker.png' %}`});
+
+        // add Mike's markers
+        let california = L.marker([36.778259, -119.417931], {icon: bingeIcon}).addTo(map);
+        let texas = L.marker([31.968599, -99.901810], {icon: bingeIcon}).addTo(map);
+        let netherlands = L.marker([52.132633, 5.291266], {icon: bingeIcon}).addTo(map);
+        let greece = L.marker([39.074207, 21.824312], {icon: bingeIcon}).addTo(map);
+        let spain = L.marker([40.463669, -3.749220], {icon: bingeIcon}).addTo(map);
+        let italy = L.marker([41.8719, 12.5674], {icon: bingeIcon}).addTo(map);
+        let germany = L.marker([51.1657, 10.4515], {icon: bingeIcon}).addTo(map);
+        let iceland = L.marker([64.9631, -19.0208], {icon: bingeIcon}).addTo(map);
+        let brazil = L.marker([-14.2350, -51.9253], {icon: bingeIcon}).addTo(map);
+        let slovakia = L.marker([48.6690, 19.6990], {icon: bingeIcon}).addTo(map);
+        let romania = L.marker([45.9432, 24.9668], {icon: bingeIcon}).addTo(map);
+        let hungary = L.marker([47.1625, 19.5033], {icon: bingeIcon}).addTo(map);
+        let denmark = L.marker([56.2639, 9.5018], {icon: bingeIcon}).addTo(map);
+        let illinois = L.marker([40.6331, -89.3985], {icon: bingeIcon}).addTo(map);
+        let moldova = L.marker([47.0105, 28.8638], {icon: bingeIcon}).addTo(map);
+        let ontario = L.marker([51.2538, -85.3232], {icon: bingeIcon}).addTo(map);
+        let southAfrica = L.marker([-30.5595, 22.9375], {icon: bingeIcon}).addTo(map);
+        let ireland = L.marker([53.1424, -7.6921], {icon: bingeIcon}).addTo(map);
+        let switzerland = L.marker([46.8182, 8.2275], {icon: bingeIcon}).addTo(map);
+        let finland = L.marker([61.9241, 25.7482], {icon: bingeIcon}).addTo(map);
+        let ukraine = L.marker([48.3794, 31.1656], {icon: bingeIcon}).addTo(map);
+        let poland = L.marker([51.9194, 19.1451], {icon: bingeIcon}).addTo(map);
+        let slovenia = L.marker([46.1512, 14.9955], {icon: bingeIcon}).addTo(map);
+        let portugal = L.marker([39.3999, -8.2245], {icon: bingeIcon}).addTo(map);
+        let england = L.marker([52.3555, -1.1743], {icon: bingeIcon}).addTo(map);
+        let luxembourg = L.marker([49.8153, 6.1296], {icon: bingeIcon}).addTo(map);
+        let sweden = L.marker([60.1282, 18.6435], {icon: bingeIcon}).addTo(map);
+        let morocco = L.marker([31.7917, -7.0926], {icon: bingeIcon}).addTo(map);
+        let france = L.marker([46.2276, 2.2137], {icon: bingeIcon}).addTo(map);
+        let bosnia = L.marker([43.9159, 17.6791], {icon: bingeIcon}).addTo(map);
+        let australia = L.marker([-25.2744, 133.7751], {icon: bingeIcon}).addTo(map);
+        let louisiana = L.marker([30.9843, -91.9623], {icon: bingeIcon}).addTo(map);
+        let quebec = L.marker([46.8139, -71.2080], {icon: bingeIcon}).addTo(map);
+        let cyprus = L.marker([35.1264, 33.4299], {icon: bingeIcon}).addTo(map);
+        let czechRepublic = L.marker([49.8175, 15.4730], {icon: bingeIcon}).addTo(map);
+        let latvia = L.marker([56.8796, 24.6032], {icon: bingeIcon}).addTo(map);
+        let bulgaria = L.marker([42.7339, 25.4858], {icon: bingeIcon}).addTo(map);
+        let croatia = L.marker([45.1000, 15.2000], {icon: bingeIcon}).addTo(map);
+        let newfoundland = L.marker([53.1355, -57.6604], {icon: bingeIcon}).addTo(map);
+        let malta = L.marker([35.9375, 14.3754], {icon: bingeIcon}).addTo(map);
+        let norway = L.marker([60.4720, 8.4689], {icon: bingeIcon}).addTo(map);
+        let lithuania = L.marker([55.1694, 23.8813], {icon: bingeIcon}).addTo(map);
+        let belgium = L.marker([50.5039, 4.4699], {icon: bingeIcon}).addTo(map);
+        let monaco = L.marker([43.7384, 7.4246], {icon: bingeIcon}).addTo(map);
+        let estonia = L.marker([58.5953, 25.0136], {icon: bingeIcon}).addTo(map);
+        let massachusetts = L.marker([42.4072, -71.3824], {icon: bingeIcon}).addTo(map);
+        let newYork = L.marker([40.7128, -74.0060], {icon: bingeIcon}).addTo(map);
+        let isleOfMan = L.marker([54.2361, -4.5481], {icon: bingeIcon}).addTo(map);
+        let northernIreland = L.marker([54.7877, -6.4923], {icon: bingeIcon}).addTo(map);
+        let wales = L.marker([52.1307, -3.7837], {icon: bingeIcon}).addTo(map);
+        let scotland = L.marker([56.4907, -4.2026], {icon: bingeIcon}).addTo(map);
+
+
+        // add marker popup content
+        scotland.bindPopup("<strong>Scotland</strong><br>Glasgow,<br>Edinburgh,<br>Dundee,<br>Aberdeen");
+        wales.bindPopup("<strong>Wales</strong><br>Swansea,<br>Cardiff");
+        northernIreland.bindPopup("<strong>Northern Ireland</strong><br>Belfast,<br>Derry");
+        isleOfMan.bindPopup("<strong>Isle Of Man</strong><br>Douglas,<br>Peel,<br>Ramsey,<br>Castletown");
+        newYork.bindPopup("<strong>New York</strong><br>New York City");
+        massachusetts.bindPopup("<strong>Massachusetts</strong><br>Boston");
+        california.bindPopup(
+            `<strong>California</strong><br>
+            Alcatraz,<br>
+            San Francisco,<br>
+            UC Berkeley,<br>
+            Los Angeles,<br>
+            Santa Monica`
+            );
+        texas.bindPopup("<strong>Texas</strong><br>Austin,<br>Amarillo,<br>Dallas,<br>San Antonio");
+        netherlands.bindPopup("<strong>Netherlands</strong><br>Amsterdam,<br>Eindhoven,<br>Rotterdam");
+        greece.bindPopup("<strong>Greece</strong><br>Athens,<br>Delphi,<br>Mykonos");
+        spain.bindPopup("<strong>Spain</strong><br>Barcelona,<br>Bilbao,<br>Seville,<br>Lanzarote");
+        italy.bindPopup(
+            `<strong>Italy</strong><br>
+            Naples,<br>
+            Milan,<br>
+            Mount Versuvius,<br>
+            Pisa,<br>
+            Pompeii,<br>
+            Rome,<br>
+            Catania,<br>
+            Mount Etna,<br>
+            Taormina,<br>
+            Venice`
+            );
+        germany.bindPopup("<strong>Germany</strong><br>Berlin,<br>Munich,<br>Hamburg,<br>Dusseldorf");
+        iceland.bindPopup("<strong>Iceland</strong><br>Blue Lagoon,<br>Gullfos Falls,<br>Reykjavik");
+        brazil.bindPopup("<strong>Brazil</strong><br>Brasilia,<br>Ipanema Beach,<br>Rio de Janeiro");
+        slovakia.bindPopup("<strong>Slovakia</strong><br>Bratislava");
+        romania.bindPopup("<strong>Romania</strong><br>Bucharest");
+        hungary.bindPopup("<strong>Hungary</strong><br>Budapest");
+        denmark.bindPopup("<strong>Denmark</strong><br>Copenhagen");
+        illinois.bindPopup("<strong>Illinois</strong><br>Chicago");
+        moldova.bindPopup("<strong>Moldova</strong><br>Chisinau")
+        ontario.bindPopup("<strong>Ontario</strong><br>Toronto,<br>Niagara Falls");
+        southAfrica.bindPopup(
+            `<strong>South Africa</strong><br>
+            Cradle of Humankind,<br>
+            Hartbeespoort,<br>
+            Johannesburg,<br>
+            Limpopo,<br>
+            Lion Park,<br>
+            Pretoria,<br>
+            Soweto,<br>
+            Capetown,<br>
+            Sun City,<br>
+            Pilanesberg National Park`
+            );
+        ireland.bindPopup("<strong>Ireland</strong><br>Dublin");
+        switzerland.bindPopup("<strong>Switzerland</strong><br>Geneva");
+        finland.bindPopup("<strong>Finland</strong><br>Helsinki");
+        ukraine.bindPopup("<strong>Ukraine</strong><br>Kiev,<br>Chernobyl");
+        poland.bindPopup("<strong>Poland</strong><br>Kraków,<br>Warsaw,<br>Poznan");
+        slovenia.bindPopup("<strong>Slovenia</strong><br>Lake Bled,<br>Ljubljana");
+        portugal.bindPopup("<strong>Portugal</strong><br>Lisbon");
+        england.bindPopup("<strong>England</strong><br>London,<br>Newcastle,<br>Liverpool,<br>Manchester,<br>Bristol,<br>Birmingham");
+        luxembourg.bindPopup("<strong>Luxembourg</strong><br>Luxembourg City");
+        sweden.bindPopup("<strong>Sweden</strong><br>Malmo,<br>Stockholm");
+        morocco.bindPopup("<strong>Morocco</strong><br>Marrakesh");
+        france.bindPopup("<strong>France</strong><br>Marseille,<br>Paris,<br>Nice,<br>Lyon");
+        bosnia.bindPopup("<strong>Bosnia</strong><br>Medjugorje,<br>Mostar");
+        australia.bindPopup("<strong>Australia</strong><br>Melbourne,<br>Sydney");
+        louisiana.bindPopup("<strong>Louisiana</strong><br>New Orleans");
+        quebec.bindPopup("<strong>Quebec</strong><br>Montreal");
+        cyprus.bindPopup("<strong>Cyprus</strong><br>Paphos");
+        latvia.bindPopup("<strong>Latvia</strong><br>Riga");
+        bulgaria.bindPopup("<strong>Bulgaria</strong><br>Sofia");
+        croatia.bindPopup("<strong>Croatia</strong><br>Split,<br>Zagreb");
+        newfoundland.bindPopup("<strong>Newfoundland</strong><br>St John's");
+        malta.bindPopup("<strong>Malta</strong><br>Valletta");
+        norway.bindPopup("<strong>Norway</strong><br>Oslo");
+        lithuania.bindPopup("<strong>Lithuania</strong><br>Vilnius");
+        czechRepublic.bindPopup("<strong>Czech Republic</strong><br>Prague");
+        belgium.bindPopup("<strong>Belgium</strong><br>Brussels");
+        monaco.bindPopup("<strong>Monaco</strong><br>Monte Carlo");
+        estonia.bindPopup("<strong>Estonia</strong><br>Tallinn");
+
+    </script>
 {% endblock %}
