@@ -3,8 +3,8 @@
 
 {% block content %}
     <!-- home hero image -->
-    <section id="home-hero-img" class="container-fluid parallax shadow m-0 p-0">
-        <div id="home-hero-overlay" class="row m-0 p-0">
+    <section id="home-hero-img" class="container-fluid parallax hero-bg-imgs shadow m-0 p-0">
+        <div class="row m-0 p-0 hero-overlay">
             <div class="col-12 m-0 p-0 text-center text-white text-shadow">
                 <div class="row m-0 p-0">
                     <div class="col-12">
@@ -49,7 +49,7 @@
                     Have a read about my fondest childhood memories, which over the years turned into a lifelong passion.
                     Find out how where the inspiration came from for creating this blog, and how I hope it inspires you!
                 </p>
-                <a href="" class="btn btn-lg btn-primary mx-auto text-shadow">Read More</a>
+                <a href="{% url 'about' %}" class="btn btn-lg btn-primary mx-auto text-shadow">Read More</a>
             </div>
         </div>
     </section>
