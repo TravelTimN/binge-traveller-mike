@@ -56,11 +56,13 @@ a, a:hover {
 .text-bt-primary-light {color: rgba(var(--bt-primary-light), 1);}
 .text-bt-primary-dark {color: rgba(var(--bt-primary-dark), 1);}
 .text-bt-primary-darkest {color: rgba(var(--bt-primary-darkest), 1);}
+.text-bt-secondary {color: rgba(var(--bt-secondary), 1);}
 
 .bg-bt-primary {background-color: rgba(var(--bt-primary), 1);}
 .bg-bt-primary-light {background-color: rgba(var(--bt-primary-light), 1);}
 .bg-bt-primary-dark {background-color: rgba(var(--bt-primary-dark), 1);}
 .bg-bt-primary-darkest {background-color: rgba(var(--bt-primary-darkest), 1);}
+.bg-bt-secondary {background-color: rgba(var(--bt-secondary), 1);}
 
 .text-shadow {
     text-shadow: 2px 2px 2px rgba(var(--black), 0.75);
@@ -353,16 +355,21 @@ aside#overlay.hide {
     letter-spacing: 1.5vw;
 }
 
-#home-hero-img {
-    min-height: 100vh;
-    background-image: url("../img/hero.webp");
-    background-position: 50% 0px;
+.hero-bg-imgs {
     background-attachment: fixed;
 }
 
-#home-hero-overlay {
+.hero-overlay {
     background-color: rgba(0, 0, 0, 0.5);
-    min-height: 100vh;
+    min-height: calc(100vh - 76px);
+}
+
+#home-hero-img {
+    background-image: url("../img/hero-home.webp");
+}
+
+#about-hero-img {
+    background-image: url("../img/hero-about.webp");
 }
 
 .tagline {

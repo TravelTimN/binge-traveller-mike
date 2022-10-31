@@ -20,7 +20,7 @@
                     <a class="nav-link mx-2" href="{% url 'home' %}"><i class="fas fa-home fa-fw fa-lg"></i></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link mx-2" href="#">About</a>
+                    <a class="nav-link mx-2" href="{% url 'about' %}">About</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link mx-2" href="#">Blog</a>
@@ -90,7 +90,7 @@
                 <i class="fas fa-home fa-fw fs-5 me-3"></i>
                 Home
             </a>
-            <a href="" class="list-group-item list-group-item-action list-group-item-secondary border-0" id="nav-link-about">
+            <a href="{% url 'about' %}" class="list-group-item list-group-item-action list-group-item-secondary border-0" id="nav-link-about">
                 <i class="fas fa-info-circle fa-fw fs-5 me-3"></i>
                 About Me
             </a>
