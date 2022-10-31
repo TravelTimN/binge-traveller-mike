@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <!-- contact hero image -->
+    <section id="contact-hero-img" class="container-fluid parallax hero-bg-imgs shadow m-0 p-0">
+        <div class="row m-0 p-0 hero-overlay">
+            <div class="col-12 m-0 p-0 text-center text-white text-shadow">
+                <div class="row m-0 p-0">
+                    <div class="col-12 px-5">
+                        <h1 id="main-heading" class="display-1 my-5 pt-5 font-jura">
+                            Let's Connect!
+                        </h1>
+                        <br><br>
+                        <p class="tagline mx-0 mx-md-5 pt-5">
+                            Got a comment or question, or just want to say hi?<br>
+                            Send me a message 😁
+                        </p>
+                    </div>
+                </div>
+                <div class="row d-none d-sm-flex m-0 p-0" id="hero-caret">
+                    <div class="col-12">
+                        <a href="#contact" class="fs-1">
+                            <i class="fas fa-chevron-down text-white" id="home-hero-caret-down"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- contact form -->
+    <section id="contact" class="container-fluid py-5 scroll-margin-top">
+        <div class="row">
+            <div class="col-12 col-lg-10 col-xl-8 mx-auto">
+                <form method="POST" action="{% url 'contact' %}" class="shadow">
+                    {% csrf_token %}
+
+                    <fieldset class="card">
+                        <legend class="card-header bg-bt-primary-dark font-jura text-light text-shadow text-center">Contact Mike</legend>
+
+                        <div class="card-body">
+
+                            <!-- name field -->
+                            <div class="input-group mb-3">
+                                <span class="input-group-text bg-bt-primary-light text-dark d-none d-md-flex"><i class="fas fa-user fa-fw"></i></span>
+                                <div class="form-floating">
+                                    {{ contact_form.name }}
+                                    <label for="id_name"><span class="text-danger">*</span> Your Name</label>
+                                </div>
+                            </div>
+
+                            <!-- email field -->
+                            <div class="input-group mb-3">
+                                <span class="input-group-text bg-bt-primary-light text-dark d-none d-md-flex"><i class="fas fa-at fa-fw"></i></span>
+                                <div class="form-floating flex-grow-1">
+                                    {{ contact_form.email }}
+                                    <label for="id_name"><span class="text-danger">*</span> Email Address</label>
+                                </div>
+                            </div>
+
+                            <!-- instagram field -->
+                            <div class="input-group mb-3">
+                                <span class="input-group-text bg-bt-primary-light text-dark d-none d-md-flex"><i class="fab fa-instagram fa-fw"></i></span>
+                                <div class="form-floating flex-grow-1">
+                                    {{ contact_form.instagram }}
+                                    <label for="id_name">Instagram <small class="text-muted">(optional)</small></label>
+                                </div>
+                            </div>
+
+                            <!-- country field -->
+                            <div class="input-group mb-3">
+                                <span class="input-group-text bg-bt-primary-light text-dark d-none d-md-flex"><i class="fas fa-flag fa-fw"></i></span>
+                                <div class="form-floating flex-grow-1">
+                                    {{ contact_form.country }}
+                                    <label for="id_name">Where are you? <mall class="text-muted">(optional)</mall></label>
+                                </div>
+                            </div>
+
+                            <!-- message field -->
+                            <div class="input-group mb-3">
+                                <span class="input-group-text bg-bt-primary-light text-dark d-none d-md-flex"><i class="fas fa-comment-alt fa-fw"></i></span>
+                                <div class="form-floating flex-grow-1">
+                                    {{ contact_form.message }}
+                                    <label for="id_name"><span class="text-danger">*</span> Message to Mike</label>
+                                </div>
+                            </div>
+
+                            <small class="text-muted"><span class="text-danger">*</span> required</small>
+
+                            <!-- form errors (if applicable) -->
+                            {% if contact_form.errors %}
+                            <div class="alert alert-danger">
+                                {% for key, value in contact_form.errors.items %}
+                                    {{ value|escape }}
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="card-footer bg-bt-primary-dark text-light">
+                            <div class="row my-3">
+                                <div class="col text-center text-light fs-5">
+                                    Your details are secure, and never disclosed to third-parties.
+                                </div>
+                            </div>
+                            <div class="row my-3">
+                                <div class="col text-center">
+                                    <!-- submit contact form -->
+                                    <button type="submit" class="btn btn-lg bg-bt-primary-light">Send</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </fieldset>
+
+                </form>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

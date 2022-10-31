@@ -94,6 +94,8 @@ a, a:hover {
     -webkit-background-clip: text;
 }
 
+
+/* FORMS */
 textarea {
     min-height: 150px !important;
 }
@@ -101,6 +103,18 @@ textarea {
 .form-control:focus {
     border-color: rgba(var(--bt-primary), 1);
     box-shadow: 0 0 0 .25rem rgba(var(--bt-primary), 0.25);
+}
+
+.btn.bg-bt-primary-light {
+    color: rgba(var(--white), 1);
+    border: 1px solid rgba(var(--white), 1);
+    background-color: rgba(var(--bt-primary-dark), 1);
+}
+
+.btn.bg-bt-primary-light:hover {
+    color: rgba(var(--black), 1);
+    border: 1px solid rgba(var(--white), 0);
+    background-color: rgba(var(--bt-primary), 1);
 }
 
 /* NAVBAR */
@@ -144,7 +158,7 @@ nav.navbar * {
 }
 
 #offcanvas-toggle-btn i.fas.fa-bars {
-    color: rgba(0, 0, 0, 1);
+    color: rgba(var(--black), 1);
     text-shadow: none;
 }
 
@@ -360,7 +374,7 @@ aside#overlay.hide {
 }
 
 .hero-overlay {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(var(--black), 0.5);
     min-height: calc(100vh - 76px);
 }
 
@@ -370,6 +384,10 @@ aside#overlay.hide {
 
 #about-hero-img {
     background-image: url("../img/hero-about.webp");
+}
+
+#contact-hero-img {
+    background-image: url("../img/hero-contact.webp");
 }
 
 .tagline {

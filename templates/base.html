@@ -4,10 +4,17 @@
 <html lang="en">
 
 <head>
-    {% include "partials/head.html" %}
+    <!-- meta and extra meta -->
+    {% include "partials/meta.html" %}
+    {% block meta %}{% endblock %}
 
-    <!-- additional head elements -->
-    {% block head %}{% endblock %}
+    <!-- css and extra css -->
+    {% include "partials/css.html" %}
+    {% block css %}{% endblock %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+
+    <!-- title -->
+    <title>Binge Traveller</title>
 </head>
 
 <body id="top">
@@ -39,11 +46,10 @@
     <!-- banner for coookie -->
     {% include "partials/cookies_banner.html" %}
 
-    <!-- scripts -->
+    <!-- js and extra js -->
     {% include "partials/scripts.html" %}
-
-    <!-- extra js -->
     {% block js %}{% endblock %}
+    <script src="{% static 'js/script.js' %}"></script>
 
 </body>
 </html>
