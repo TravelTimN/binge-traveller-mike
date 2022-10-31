@@ -1,0 +1,20 @@
+!! DO NOT REPLY !!
+This is an automated email sent from the Binge Traveller website.
+
+------------------------------------------------
+
+Hello Mike,
+
+A new message has arrived. Please see details below:
+
+- Name: {{ form_context.name }}
+- Email Address: {{ form_context.email }}
+- Instagram: {{ form_context.instagram }}
+- Country: {{ form_context.country }}
+- Message:
+{{ form_context.message }}
+
+------------------------------------------------
+
+Kind Regards,
+2BN-DEV
