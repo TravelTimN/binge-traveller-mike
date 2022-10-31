@@ -1,0 +1,253 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <!-- about hero image -->
+    <section id="about-hero-img" class="container-fluid parallax hero-bg-imgs shadow m-0 p-0">
+        <div class="row m-0 p-0 hero-overlay">
+            <div class="col-12 m-0 p-0 text-center text-white text-shadow">
+                <div class="row m-0 p-0">
+                    <div class="col-12 px-5">
+                        <h1 id="main-heading" class="display-1 my-5 pt-5 font-jura">
+                            About Mike
+                        </h1>
+                        <br><br>
+                        <p class="tagline mx-0 mx-md-5 pt-5">
+                            Welcome to my website, Binge Traveller!<br>
+                            I hope that you find it insightful, informative, and entertaining!
+                        </p>
+                    </div>
+                </div>
+                <div class="row d-none d-sm-flex m-0 p-0" id="hero-caret">
+                    <div class="col-12">
+                        <a href="#meet" class="fs-1">
+                            <i class="fas fa-chevron-down text-white" id="home-hero-caret-down"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- meet mike -->
+    <section id="meet" class="container-fluid pt-5 scroll-margin-top">
+        <div class="row text-center">
+            <div class="col-12 col-lg-6">
+                <img src="{% static 'img/mike/mike-sunset.webp' %}" alt="Mike at sunset" class="img-fluid rounded shadow">
+            </div>
+            <div class="col-12 col-lg-6 d-flex flex-column align-items-center align-self-center my-5 my-lg-0">
+                <h2 class="display-6 font-spinnaker text-primary">Hi, I'm Mike Murtagh, and I am located in Dublin, Ireland</h2>
+                <p class="fs-4 my-4 px-3 px-lg-5">
+                    From as long as I can remember, I have always had an interest in geography.
+                    From sketching maps of Ireland, to flicking through the pages of an atlas.
+                    By Primary School, I knew the capitals of all the countries in the world, as well as rivers, mountains, lakes, and various cities.
+                    I knew the flags of each country, and
+                    <span class="text-primary fw-bold">dreamed of what it would be like to visit such far-flung destinations,</span>
+                    and how it might be different to living in rural Ireland.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- aviation passion -->
+    <section class="container-fluid pt-0 pt-lg-5">
+        <div class="row text-center">
+            <div class="col-12 col-lg-6 d-flex flex-column align-items-center align-self-center my-5 my-lg-0 order-2 order-lg-1">
+                <p class="fs-5 my-4 px-3 px-lg-5">
+                    My Dad bought me a "bigger and better" atlas at a school book fair, and I literally never took my head out of this book!
+                </p>
+                <p class="fs-5 my-4 px-3 px-lg-5">
+                    At the same time, I discovered a passion for aviation and plane spotting, and so my parents bought me a pair of
+                    binoculars for Christmas when I was about 10 years old, so that I could plane-spot quite easily from my garden.
+                    <span class="text-primary fw-bold">
+                        I longed to be on those planes which were zooming at 40,000 feet over my head,
+                        and wondered where in the world they might be going to.
+                    </span>
+                    My bedroom wall was covered in pictures of maps and photos of aeroplanes, from ceiling to floor.
+                </p>
+                <p class="fs-5 my-4 px-3 px-lg-5">
+                    I had written to various embassies in Ireland for further information about their mission and home country,
+                    as well as to airline offices for photos and pictures of their aircraft.
+                    There was also a globe of the world sitting on my bedside locker sitting on top of atlases and maps,
+                    inspiration from the moment I opened my eyes!
+                </p>
+            </div>
+            <div class="col-12 col-lg-6 order-1 order-lg-2">
+                <img src="{% static 'img/mike/travel-books.webp' %}" alt="Some of Mike's Travel Books" class="img-fluid rounded shadow">
+            </div>
+        </div>
+    </section>
+
+    <!-- going places -->
+    <section class="container-fluid pt-0 pt-lg-5">
+        <div class="row text-center">
+            <div class="col-12 col-lg-6">
+                <img src="{% static 'img/mike/airplane.webp' %}" alt="Airplane in the sky" class="img-fluid rounded shadow">
+            </div>
+            <div class="col-12 col-lg-6 d-flex flex-column align-items-center align-self-center my-5 my-lg-0">
+                <p class="fs-5 my-4 px-3 px-lg-5">
+                    With my parents and grandparents, I visited Dublin Airport, Shannon Airport, and Knock Airport, and I immediately knew,
+                    <span class="text-primary fw-bold">"this was my place; this is where I belonged"</span>.
+                    I was completely amazed, not just by the buzz of the airport, but by the beauty of the aircraft up close,
+                    and seeing the huge departure board flicking with names of cities I had read about and looked-up in my atlas:
+                    <em>Athens, Copenhagen, New York, Helsinki. Toronto</em>.
+                </p>
+                <p class="fs-5 my-4 px-3 px-lg-5">
+                    <span class="text-primary fw-bold">Oh, what I would give to head off to any of these places!</span>
+                    I had no sense of fear; I felt so independent, and just wished to go through those departure gates and jump on a plane.
+                    <br>
+                    Any plane!
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- first travels -->
+    <section class="container-fluid pt-0 pt-lg-5">
+        <div class="row text-center">
+            <div class="col-12 col-lg-6 d-flex flex-column align-items-center align-self-center my-5 my-lg-0 order-2 order-lg-1">
+                <p class="fs-5 my-4 px-3 px-lg-5">
+                    It wasn't until I was 15 years old, that I got to take my first trip abroad and get to travel on a plane for the first time.
+                    I was in 4th year in secondary school, and our school had organised a trip to Barcelona.
+                    I begged my parents to allow me to go, and they agreed to let me go on this tour!
+                    <br>
+                    <span class="text-primary fw-bold">I don't think I was ever as excited in my life.</span>
+                </p>
+                <p class="fs-5 my-4 px-3 px-lg-5">
+                    We flew on an old Ryanair Boeing 737-200 from Dublin (<span class="fw-bold">DUB</span>)
+                    to London's Stansted (<span class="fw-bold">STN</span>) airport, and from there with a coach to Dover.
+                    We crossed the English channel to Calais by ferry, and drove through the entire length of France via Troyes and Lyon down to Barcelona.
+                    We stopped in Paris on the return journey, and I was in awe of the Eiffel Tower and Arc de Triomphe.
+                    I took 3 rolls of film for my camera and snapped pictures of everything that I saw!
+                    <span class="text-primary fw-bold">I came back a changed person</span>,
+                    as I had finally tasted what it was like to visit a new place.
+                    This trip lives long in my memory, and I even still have my old Ryanair boarding card from May 1996.
+            </div>
+            <div class="col-12 col-lg-6 order-1 order-lg-2">
+                <img src="{% static 'img/mike/first-flight.webp' %}" alt="Mike's first flight airline ticket on Ryanair" class="img-fluid rounded shadow">
+            </div>
+        </div>
+    </section>
+
+    <!-- penpals -->
+    <section class="container-fluid pt-0 pt-lg-5">
+        <div class="row text-center">
+            <div class="col-12 col-lg-6">
+                <img src="{% static 'img/mike/penpal.webp' %}" alt="Stack of penpal letters" class="img-fluid rounded shadow">
+            </div>
+            <div class="col-12 col-lg-6 d-flex flex-column align-items-center align-self-center my-5 my-lg-0">
+                <p class="fs-5 my-4 px-3 px-lg-5">
+                    At this point, I had penpals in numerous different countries around the world.
+                    Egypt, Australia, Finland, Italy, Cyprus, Israel, Russia, Peru&hellip;.
+                    I was exchanging photos, cassette tapes of local music, stamps, currency, and learning more about life in other countries.
+                    It was also a fantastic way to brush up on my written French skills, and hence I had about 6 French penpals on the go at one time!
+                    <span class="text-primary fw-bold">I may have stolen money from my mothers purse in order to buy stamps at the Post Office</span>,
+                    and I most definitely was caught by teachers many times in class at school writing letters to said penpals.
+                    All of which got me into trouble as you might imagine!
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- study abroad in France -->
+    <section class="container-fluid pt-0 pt-lg-5">
+        <div class="row text-center">
+            <div class="col-12 col-lg-6 d-flex flex-column align-items-center align-self-center my-5 my-lg-0 order-2 order-lg-1">
+                <p class="fs-5 my-4 px-3 px-lg-5">
+                    I then went into Leaving Cert with a renewed interest in Geography and French,
+                    and I decided to pursue my degree in Dublin City University (DCU) studying a Bachelors in Applied Computational Linguistics.
+                    I deliberately selected this course, as it allowed me to spend the third year of my program at a
+                    French university as part of the Erasmus exchange program.
+                    I eventually went to "Université de Provence I" in Aix-en-Provence, in the south of France, close to Marseille.
+                </p>
+                <p class="fs-5 my-4 px-3 px-lg-5">
+                    Being based there, I was able to visit amazing towns and cities throughout the south of France,
+                    and my love and thirst for travel and experiencing new things just grew and grew.
+                    I swam in the Mediterranean Sea at Plages du Prado in Marseille.
+                    I visited the incredible Palais des Papes in Avignon.
+                    I admired the stunning lavender fields near Salon de Provence.
+                    I attended the Monaco Grand Prix in Monte Carlo, and strolled on the Promenade des Anglais in Nice.
+                    <span class="text-primary fw-bold">I was literally in heaven there, and never wanted to leave.</span>
+                </p>
+            </div>
+            <div class="col-12 col-lg-6 order-1 order-lg-2">
+                <img src="{% static 'img/mike/bags.webp' %}" alt="Mike's luggage and backpack" class="img-fluid rounded shadow">
+            </div>
+        </div>
+    </section>
+
+    <!-- post graduate -->
+    <section class="container-fluid pt-0 pt-lg-5">
+        <div class="row text-center">
+            <div class="col-12 col-lg-6">
+                <img src="{% static 'img/mike/bag-tags.webp' %}" alt="Mike's collection of luggage tags" class="img-fluid rounded shadow">
+            </div>
+            <div class="col-12 col-lg-6 d-flex flex-column align-items-center align-self-center my-5 my-lg-0">
+                <p class="fs-5 my-4 px-3 px-lg-5">
+                    Once I had reluctantly returned to Dublin and completed my degree,
+                    I vowed that I would travel the world and lead my life in a way that I get to experience as much culture,
+                    and meet as many new people, as possible.
+                    Over the years, I have discovered that I am a person who is not driven by material possessions;
+                    I'd much rather spend my money on experiences, and see the world with my own eyes.
+                    <span class="text-primary fw-bold">
+                        When I call my parents or friends now, they typically ask, "Where are you?", rather than, "How are you?"
+                    </span>
+                    😂
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- pre-flight tradition -->
+    <section class="container-fluid pt-0 pt-lg-5">
+        <div class="row text-center">
+            <div class="col-12 col-lg-6 d-flex flex-column align-items-center align-self-center my-5 my-lg-0 order-2 order-lg-1">
+                <p class="fs-5 my-4 px-3 px-lg-5">
+                    As a tradition, I always start my journey with a pint of beer at Dublin Airport (<span class="fw-bold">DUB</span>),
+                    whether it is 5am, or 10pm.
+                    I have a few more on the plane (naturally!) just to pass the time,
+                    and I am always eager to try out local food and beer/wine/etc. at my destination.
+                    <br>
+                    <span class="text-primary fw-bold">As a result, the idea of "Binge Traveller" was born.</span>
+                </p>
+                <p class="fs-5 my-4 px-3 px-lg-5">
+                    The aim is to provide inspiration to fellow solo travellers, as well as <span class="bg-dark px-2 badge rounded-pill"><span class="text-rainbow fw-bold">LGBTQ+</span></span>
+                    travellers who would like to gain an insight into cities or places which may be welcoming and inclusive.
+                    I am by no means a professional photographer or script writer, but I do hope that by documenting my personal experiences,
+                    and capturing some amateur photos along the way, that I can allow you to step outside of your comfort zone,
+                    and perhaps visit somewhere that you thought might be out-of-reach!
+                    All of my photos are taken by iPhone 11, or GoPro Hero 9.
+                </p>
+            </div>
+            <div class="col-12 col-lg-6 order-1 order-lg-2">
+                <img src="{% static 'img/mike/pre-flight-beer.webp' %}" alt="Mike's pre-flight tradition: a drink at the airport" class="img-fluid rounded shadow">
+            </div>
+        </div>
+    </section>
+
+    <!-- gratitude for parents -->
+    <section class="container-fluid pt-0 pt-lg-5 pb-5">
+        <div class="row text-center">
+            <div class="col-12 col-lg-6">
+                <img src="{% static 'img/mike/mike-cabin.webp' %}" alt="Mike drinking red wine in airplane cabin" class="img-fluid rounded shadow">
+            </div>
+            <div class="col-12 col-lg-6 d-flex flex-column align-items-center align-self-center my-5 my-lg-0">
+                <p class="fs-5 my-4 px-3 px-lg-5">
+                    Finally, I absolutely must say that I will be forever grateful to my parents,
+                    as they were the ones who instilled the love of travel in me from the very start.
+                    From buying me an atlas, binoculars, and allowing me to go on the school tour -
+                    these were the foundation stones that allowed me to discover the joy of travel, and which today is my sole passion in life.
+                </p>
+                <p class="fs-5 my-4 px-3 px-lg-5">
+                    <span class="text-primary fw-bold">Never Stop Dreaming, Push Yourself, and Fly High!</span>
+                </p>
+                <p class="fs-5 my-4 px-3 px-lg-5">
+                    Big hugs,
+                    <br>
+                    - Mike
+                </p>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
