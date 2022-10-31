@@ -1,6 +1,17 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block css %}
+<!-- leaflet maps -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.2/leaflet.css"
+    integrity="sha512-UkezATkM8unVC0R/Z9Kmq4gorjNoFwLMAWR/1yZpINW08I79jEKx/c8NlLSvvimcu7SL8pgeOnynxfRpe+5QpA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-extra-markers/1.2.1/css/leaflet.extra-markers.min.css"
+    integrity="sha512-wurszDyO1nj6ESdfrXb9h1hmoHMu3sQ3iXgKcu/p81lT+KaPGkta9NIPX7k6XXGgVYpcRHcc8AA4UIeQ7Ax/Cw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="stylesheet" href="{% static 'home/css/leaflet-attribution.css' %}" type="text/css">
+{% endblock %}
+
 {% block content %}
     <!-- home hero image -->
     <section id="home-hero-img" class="container-fluid parallax hero-bg-imgs shadow m-0 p-0">
@@ -205,6 +216,16 @@
 <!-- TODO: this needs to be converted into a manageable model for Mike, not hard-coded: See Issue #8 -->
 <!-- TODO: https://github.com/TravelTimN/binge-traveller-mike/issues/8 -->
 {% block js %}
+
+    <!-- leaflet maps -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.2/leaflet.js"
+        integrity="sha512-KMraOVM0qMVE0U1OULTpYO4gg5MZgazwPAPyMQWfOkEshpwlLQFCHZ/0lBXyviDNVL+pBGwmeXQnuvGK8Fscvg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-extra-markers/1.2.1/js/leaflet.extra-markers.min.js"
+        integrity="sha512-ejMFZwlfxDqEaSHHcCJ9EhzzDyp3QB5NjmGfOp1iwUQ7pFam2pX3EKERWvWK8H5HLQG6ETrx3RvrEFMQ4kIQ/Q=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{% static 'home/js/leaflet-attribution.js' %}"></script>
+
     <script>
         const mapUrl = `{{ map_url }}`;
 
