@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <!-- blog hero image -->
+    <section id="blog-hero-img" class="container-fluid parallax hero-bg-imgs shadow m-0 p-0">
+        <div class="row m-0 p-0 hero-overlay">
+            <div class="col-12 m-0 p-0 text-center text-white text-shadow">
+                <div class="row m-0 p-0">
+                    <div class="col-12 px-5">
+                        <h1 id="main-heading" class="display-1 my-5 pt-5 font-jura">
+                            Binge Traveller Blog
+                        </h1>
+                        <br><br>
+                        <p class="tagline mx-0 mx-md-5 pt-5">
+                            All my adventures, in one place.
+                        </p>
+                    </div>
+                </div>
+                <div class="row d-none d-sm-flex m-0 p-0" id="hero-caret">
+                    <div class="col-12">
+                        <a href="#blogs" class="fs-1">
+                            <i class="fas fa-chevron-down text-white" id="home-hero-caret-down"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- blogs -->
+    <section id="blogs" class="container pt-5 scroll-margin-top">
+        <div class="row my-5 mx-1">
+
+            <!-- blog filtering by country / date -->
+            <aside id="blog-filtering" class="col-12 col-lg-4 order-1 order-lg-2 m-0 py-0 px-0 px-md-3 mb-5">
+
+                <!-- filter by country -->
+                <div class="accordion" id="accordion-country">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="accordion-country-panel">
+                            <button class="accordion-button text-uppercase fw-bold" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#accordion-country-collapse" aria-expanded="true"
+                                aria-controls="accordion-country-collapse">
+                                Countries
+                            </button>
+                        </h2>
+                        <div id="accordion-country-collapse" class="accordion-collapse collapse show"
+                            aria-labelledby="accordion-country-panel">
+                            <div class="accordion-body m-0 p-0">
+                                <div class="list-group list-group-flush">
+                                    <!-- loop over blog countries -->
+                                    <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+                                        Albania
+                                    </a>
+                                    <a href="#" class="list-group-item list-group-item-action">Austria</a>
+                                    <a href="#" class="list-group-item list-group-item-action">Australia</a>
+                                    <a href="#" class="list-group-item list-group-item-action">Azerbaijan</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- filter by date archive -->
+                <div class="accordion mt-5" id="accordion-dates">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="accordion-dates-panel">
+                            <button class="accordion-button text-uppercase fw-bold" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#accordion-dates-collapse" aria-expanded="true"
+                                aria-controls="accordion-dates-collapse">
+                                Archives
+                            </button>
+                        </h2>
+                        <div id="accordion-dates-collapse" class="accordion-collapse collapse show"
+                            aria-labelledby="accordion-dates-panel">
+                            <div class="accordion-body m-0 p-0">
+                                <div class="list-group list-group-flush">
+                                    <!-- loop over blog months -->
+                                    <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+                                        September 2022
+                                    </a>
+                                    <a href="#" class="list-group-item list-group-item-action">August 2022</a>
+                                    <a href="#" class="list-group-item list-group-item-action">July 2022</a>
+                                    <a href="#" class="list-group-item list-group-item-action">June 2022</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </aside>
+
+            <!-- list the blogs -->
+            <div class="col-12 col-lg-8 order-2 order-lg-1">
+                <div class="row">
+
+                    <!-- for-loop over exiting blogs -->
+                    <!-- if forloop.counter|divisibleby:2 (even) -->
+                    <!-- this can be applied to the classes using "order" -->
+                    <div class="col-12 card blog-card mb-5 mx-0 p-0 shadow">
+                        <div class="row g-0">
+                            <div class="col-md-4 order-1">
+                                <!-- if forloop.counter|divisibleby:2 then order doesn't get "order-md-value" -->
+                                <div class="blog-card-img-wrapper">
+                                    <img src="{% static 'img/mike/bags.webp' %}" class="img-fluid blog-card-img" alt="...">
+                                    <span class="blog-card-img-text fw-bold text-white text-uppercase text-center text-shadow p-2">Croatia</span>
+                                </div>
+                            </div>
+                            <div class="col-md-8 d-flex flex-column order-2">
+                                <!-- if forloop.counter|divisibleby:2 then order doesn't get "order-md-value" -->
+                                <div class="card-body">
+                                    <h6 class="text-bt-primary"><small>November 02, 2022</small></h6>
+                                    <h5 class="card-title fw-bold">
+                                        <a href="">
+                                            Blog title
+                                        </a>
+                                    </h5>
+                                    <p class="card-text">
+                                        This is a wider card with supporting text below as a
+                                        natural lead-in to additional content. This content is a little bit longer.
+                                        This is a wider card with supporting text below as a
+                                        natural lead-in to additional content. This content is a little bit longer.
+                                    </p>
+                                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small>
+                                    </p>
+                                    <a href="#" class="btn btn-primary">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- sample 2nd blog post -->
+                    <div class="col-12 card blog-card mb-5 mx-0 p-0 shadow">
+                        <div class="row g-0">
+                            <div class="col-md-8 d-flex flex-column order-2 order-md-1">
+                                <!-- if NOT forloop.counter|divisibleby:2 then order gets "order-md-value" -->
+                                <div class="card-body">
+                                    <h6 class="text-bt-primary"><small>November 02, 2022</small></h6>
+                                    <h5 class="card-title fw-bold">
+                                        <a href="">
+                                            Blog title
+                                        </a>
+                                    </h5>
+                                    <p class="card-text">
+                                        This is a wider card with supporting text below as a
+                                        natural lead-in to additional content. This content is a little bit longer.
+                                    </p>
+                                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small>
+                                    </p>
+                                    <a href="#" class="btn btn-primary">Read More</a>
+                                </div>
+                            </div>
+                            <div class="col-md-4 order-1 order-md-2">
+                                <!-- if NOT forloop.counter|divisibleby:2 then order gets "order-md-value" -->
+                                <div class="blog-card-img-wrapper">
+                                    <img src="{% static 'img/mike/bag-tags.webp' %}" class="img-fluid blog-card-img" alt="...">
+                                    <span class="blog-card-img-text fw-bold text-white text-uppercase text-center text-shadow p-2">The United Kingdom of Great Britain and Northern Ireland</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
