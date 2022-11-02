@@ -23,7 +23,7 @@
                     <a class="nav-link mx-2" href="{% url 'about' %}">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link mx-2" href="#">Blog</a>
+                    <a class="nav-link mx-2" href="{% url 'blog' %}">Blog</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link mx-2" href="{% url 'contact' %}">Contact</a>
@@ -94,7 +94,7 @@
                 <i class="fas fa-info-circle fa-fw fs-5 me-3"></i>
                 About Me
             </a>
-            <a href="" class="list-group-item list-group-item-action list-group-item-secondary border-0" id="nav-link-about">
+            <a href="{% url 'blog' %}" class="list-group-item list-group-item-action list-group-item-secondary border-0" id="nav-link-about">
                 <i class="fas fa-blog fa-fw fs-5 me-3"></i>
                 Blog
             </a>
