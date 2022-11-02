@@ -386,6 +386,10 @@ aside#overlay.hide {
     background-image: url("../img/hero-about.webp");
 }
 
+#blog-hero-img {
+    background-image: url("../img/hero-blog.webp");
+}
+
 #contact-hero-img {
     background-image: url("../img/hero-contact.webp");
 }
@@ -492,6 +496,27 @@ figure.drinks-gallery-img:hover figcaption {
     height: 60vh;
 }
 
+/* BLOG */
+.blog-card-img-wrapper {
+    position: relative;
+}
+
+.blog-card-img-text {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    letter-spacing: 3px;
+    background-color: rgba(var(--bt-primary-dark), 0.85);
+}
+
+.blog-card-img {
+    max-height: 25vh;
+    width: 100%;
+    object-fit: cover;
+}
+
 /* FOOTER */
 footer {
     text-align: center;
@@ -563,6 +588,12 @@ footer .fas:hover {
     /* navbar */
     #navbar-logo-text {
         font-size: 3vw;
+    }
+
+    /* BLOG */
+    .blog-card-img {
+        min-height: 350px;
+        max-height: 350px;
     }
 }
 
