@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     "tinymce",
     "accounts",
     "about",
+    "blog",
     "contact",
     "home",
     "django_cleanup.apps.CleanupConfig",  # MUST be last

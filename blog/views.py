@@ -1,3 +1,8 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+def blog(request):
+    """ A view to return the blog page """
+    template = "blog/blog.html"
+    context = {}
+    return render(request, template, context)
