@@ -63,6 +63,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "main.contexts.map_url_api",
+                "main.contexts.get_args",
             ],
         },
     },
