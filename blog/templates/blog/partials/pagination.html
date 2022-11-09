@@ -1,0 +1,37 @@
+<nav aria-label="Page Pagination">
+    <ul class="pagination pagination-lg justify-content-center">
+
+        {% if posts.has_previous %}
+        <!-- previous page -->
+            <li class="page-item">
+                <a class="page-link" href="?page={{ posts.previous_page_number }}{{ get_args }}#blogs" aria-label="Previous">
+                    <i class="fas fa-angle-left" aria-hidden="true"></i>
+                </a>
+            </li>
+        {% endif %}
+
+        {% for num in posts.paginator.page_range %}
+            <!-- loop through pagination 'page' numbers -->
+            {% if posts.number == num %}
+                <!-- set 'active' class but disable the 'current page -->
+                <li class="page-item active disabled" aria-current="page">
+                    <a class="page-link">{{ num }}</a>
+                </li>
+            {% elif num > posts.number|add:'-3' and num < posts.number|add:'3' %}
+                <!-- get the previous 2 and next 2 page numbers -->
+                <li>
+                    <a href="?page={{ num }}{{ get_args }}#blogs" class="page-link">{{ num }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+
+        {% if posts.has_next %}
+            <!-- next page -->
+            <li class="page-item">
+                <a class="page-link" href="?page={{ posts.next_page_number }}{{ get_args }}#blogs">
+                    <i class="fas fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
