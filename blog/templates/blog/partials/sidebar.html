@@ -1,0 +1,70 @@
+<!-- blog filtering sidebar -->
+<aside id="blog-filtering" class="col-12 col-lg-4 order-1 order-lg-2 m-0 py-0 px-0 px-md-3 mb-5">
+
+    <!-- filter by country -->
+    <div class="accordion" id="accordion-country">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="accordion-country-panel">
+                <button class="accordion-button text-uppercase fw-bold" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#accordion-country-collapse" aria-expanded="true"
+                    aria-controls="accordion-country-collapse">
+                    Countries
+                </button>
+            </h2>
+            <div id="accordion-country-collapse" class="accordion-collapse collapse show"
+                aria-labelledby="accordion-country-panel">
+                <div class="accordion-body m-0 p-0">
+                    <div class="list-group list-group-flush">
+                        <!-- loop over blog countries -->
+                        <a href="{% url 'blog' %}#blogs"
+                            class="list-group-item list-group-item-action {% if not request.GET.country %}active{% endif %}"
+                            {% if not request.GET.country %}aria-current="true"{% endif %}>
+                                ALL
+                        </a>
+                        {% for country in countries %}
+                            <a href="{% url 'blog' %}?country={{ country.iso }}#blogs"
+                                class="list-group-item list-group-item-action {% if request.GET.country == country.iso %}active{% endif %}"
+                                {% if request.GET.country == country.iso %}aria-current="true"{% endif %}>
+                                    {{ country.full }}
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- filter by date archive -->
+    <div class="accordion mt-5" id="accordion-dates">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="accordion-dates-panel">
+                <button class="accordion-button text-uppercase fw-bold" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#accordion-dates-collapse" aria-expanded="true"
+                    aria-controls="accordion-dates-collapse">
+                    Archives
+                </button>
+            </h2>
+            <div id="accordion-dates-collapse" class="accordion-collapse collapse show"
+                aria-labelledby="accordion-dates-panel">
+                <div class="accordion-body m-0 p-0">
+                    <div class="list-group list-group-flush">
+                        <!-- loop over blog months -->
+                        <a href="{% url 'blog' %}#blogs"
+                            class="list-group-item list-group-item-action {% if not request.GET.date %}active{% endif %}"
+                            {% if not request.GET.date %}aria-current="true"{% endif %}>
+                                ALL
+                        </a>
+                        {% for month in months %}
+                            <a href="{% url 'blog' %}?date={{ month.short }}#blogs"
+                                class="list-group-item list-group-item-action {% if request.GET.date == month.short %}active{% endif %}"
+                                {% if request.GET.date == month.short %}aria-current="true"{% endif %}>
+                                    {{ month.full }}
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</aside>
