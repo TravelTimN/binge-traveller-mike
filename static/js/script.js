@@ -104,6 +104,33 @@ if (alerts.length > 0) {
 }
 
 
+/* ----- SIDEBAR AUTO-COLLAPSE ----- */
+let accordtionBtns = document.querySelectorAll(".accordion-button");
+if (accordtionBtns.length > 0) {
+    $(window).on("load resize", function() {
+        // smaller screens should be closed by default
+        const mq = window.matchMedia("(min-width: 992px)");
+        if (mq.matches) {
+            // desktop: open sidebars
+            accordtionBtns.forEach(btn => {
+                let ariaCtrl = btn.getAttribute("aria-controls");
+                document.querySelector(`#${ariaCtrl}`).classList.add("show");
+                btn.classList.remove("collapsed");
+                btn.setAttribute("aria-expanded", "true");
+            });
+        } else {
+            // mobile: close sidebars
+            accordtionBtns.forEach(btn => {
+                let ariaCtrl = btn.getAttribute("aria-controls");
+                document.querySelector(`#${ariaCtrl}`).classList.remove("show");
+                btn.classList.add("collapsed");
+                btn.setAttribute("aria-expanded", "false");
+            });
+        }
+    });
+}
+
+
 /* ----- CRUD Functionality ----- */
 
 // disable first <option> in each <select> input
