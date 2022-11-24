@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, render, redirect, reverse
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django_countries import countries as countrylist
-from .models import Post
+from .models import Post, PostImage
 
 
 def get_country_list(posts):
@@ -86,6 +86,9 @@ def blog_post(request, country, year, month, day, id, slug):
         messages.error(request, "Oops! That blog post is not available.")
         return redirect(reverse("blog"))
 
+    # grab images related to this blog post
+    images = PostImage.objects.filter(post=post)
+
     # grab only published blog posts
     posts = Post.objects.filter(status="published")
     # sidebar menus
@@ -95,6 +98,7 @@ def blog_post(request, country, year, month, day, id, slug):
     template = "blog/blog_post.html"
     context = {
         "post": post,
+        "images": images,
         "countries": countries,
         "months": months,
     }
