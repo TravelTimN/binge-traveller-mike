@@ -3,34 +3,45 @@
 {% load humanize %}
 
 {% block content %}
-    <!-- blog hero image -->
-    <!-- <section id="blog-hero-img" class="container-fluid parallax hero-bg-imgs shadow m-0 p-0">
-        <div class="row m-0 p-0 hero-overlay">
-            <div class="col-12 m-0 p-0 text-center text-white text-shadow">
-                <div class="row m-0 p-0">
-                    <div class="col-12 px-5">
-                        <h1 id="main-heading" class="display-1 my-5 pt-5 font-jura">
-                            Binge Traveller Blog
-                        </h1>
-                        <br><br>
-                        <p class="tagline mx-0 mx-md-5 pt-5">
-                            All my adventures, in one place.
-                        </p>
-                    </div>
-                </div>
-                <div class="row d-none d-sm-flex m-0 p-0" id="hero-caret">
-                    <div class="col-12">
-                        <a href="#blogs" class="fs-1">
-                            <i class="fas fa-chevron-down text-white" id="home-hero-caret-down"></i>
-                        </a>
-                    </div>
-                </div>
+    {% if images|length > 0 %}
+        <!-- blog hero carousel -->
+        <section id="blog-hero-carousel" class="shadow carousel slide carousel-fade m-0 p-0" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                {% for image in images %}
+                    <button type="button" data-bs-target="#blog-hero-carousel" data-bs-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active" aria-current="true"{% endif %} aria-label="Slide 1"></button>
+                {% endfor %}
             </div>
-        </div>
-    </section> -->
+            <div class="carousel-inner">
+                {% for image in images %}
+                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                        <img src="{{ image.image.url }}" class="d-block w-100 img-fluid" alt="{{ image.post.title }}">
+                        <div class="carousel-caption rounded-4">
+                            <h2 class="d-none d-md-block">{{ image.post.title }}</h2>
+                            <h5 class="d-md-none">{{ image.post.title }}</h5>
+                            <p class="p-0 m-0">
+                                <a href="{% url 'home' %}" class="d-none d-md-inline-block">Home</a>
+                                <span class="d-none d-md-inline-block mx-3">|</span>
+                                <a href="{% url 'blog' %}#blogs" class="d-none d-md-inline-block">Blog</a>
+                                <span class="d-none d-md-inline-block mx-3">|</span>
+                                <a href="{% url 'blog' %}?country={{ image.post.country }}#blogs" class="text-bt-primary">{{ image.post.country.name }}</a>
+                            </p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#blog-hero-carousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#blog-hero-carousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </section>
+    {% endif %}
 
     <!-- blog -->
-    <section id="blogs" class="container pt-5 scroll-margin-top">
+    <section id="blogs" class="container pt-0 scroll-margin-top">
         <div class="row my-5 mx-1">
 
             <!-- sidebar menus -->
@@ -38,8 +49,19 @@
 
             <!-- the blog -->
             <div class="col-12 col-lg-8 order-2 order-lg-1">
-                <div class="row">
 
+                <!-- first 3 post images -->
+                <div class="row order-2 order-lg-1">
+                    {% for image in images %}
+                        {% if forloop.counter <= 3 %}
+                            <div class="col-4 mb-3">
+                                <img src="{{ image.image.url }}" class="img-fluid h-100 blog-image-thumb" alt="{{ image.post.title }}">
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+                <div class="row order-1 order-lg-2">
                     <div class="col-12 card blog-card mb-5 mx-0 p-0 shadow">
                         <div class="row g-0">
                             <div class="col-md-4">
@@ -80,6 +102,17 @@
                         </div>
                     </div>
 
+                </div>
+
+                <!-- all remaining post images -->
+                <div class="row">
+                    {% for image in images %}
+                        {% if forloop.counter > 3 %}
+                            <div class="col-4 mb-3">
+                                <img src="{{ image.image.url }}" class="img-fluid h-100 blog-image-thumb" alt="{{ image.post.title }}">
+                            </div>
+                        {% endif %}
+                    {% endfor %}
                 </div>
 
             </div>
