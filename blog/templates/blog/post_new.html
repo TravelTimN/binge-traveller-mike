@@ -1,0 +1,362 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <!-- TinyMCE Widget -->
+    {{ post_form.media }}
+{% endblock %}
+
+{% block css %}
+    <!-- filepond -->
+    <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet">
+    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<section class="container-fluid">
+    <div class="row">
+
+        <!-- form data -->
+        <div class="col-12 col-lg-10 col-xl-8 mx-auto py-5 px-2 px-md-5">
+            <form id="post-form" method="POST" action="{% url 'post_new' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <fieldset class="card shadow">
+                    <legend class="card-header bg-bt-primary-darkest text-light text-center">New Blog Post</legend>
+
+                    <div class="card-body">
+
+                        <!-- form errors (if applicable) -->
+                        {% if post_form.errors %}
+                        <div id="form-errors" class="alert alert-danger mb-3">
+                            {% for key, value in post_form.errors.items %}
+                                Error on "{{ key|escape|title }}"
+                                {{ value|escape }}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+
+                        <!-- title field -->
+                        <div class="input-group mb-3">
+                            <span class="input-group-text bg-secondary bg-opacity-25 text-dark d-none d-md-flex">
+                                <i class="fas fa-bullhorn fa-fw"></i>
+                            </span>
+                            <div class="form-floating flex-grow-1">
+                                {{ post_form.title }}
+                                <label for="id_title">* Blog Title</label>
+                                <!-- hidden slug field -->
+                                {{ post_form.slug }}
+                            </div>
+                        </div>
+
+                        <!-- destination and country fields -->
+                        <div class="row">
+                            <!-- destination -->
+                            <div class="col-12 col-md-6">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text bg-secondary bg-opacity-25 text-dark d-none d-md-flex">
+                                        <i class="fas fa-map-marked-alt fa-fw"></i>
+                                    </span>
+                                    <div class="form-floating flex-grow-1">
+                                        {{ post_form.destination }}
+                                        <label for="id_destination">* Destination Name</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- country -->
+                            <div class="col-12 col-md-6">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text bg-secondary bg-opacity-25 text-dark d-none d-md-flex">
+                                        <i class="fas fa-flag fa-fw"></i>
+                                    </span>
+                                    <div class="form-floating flex-grow-1">
+                                        {{ post_form.country }}
+                                        <label for="id_country">* Destination Country</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- start and end date fields -->
+                        <div class="row">
+                            <!-- start_date -->
+                            <div class="col-12 col-md-6">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text bg-secondary bg-opacity-25 text-dark d-none d-md-flex">
+                                        <i class="fas fa-calendar-check fa-fw"></i>
+                                    </span>
+                                    <div class="form-floating flex-grow-1">
+                                        {{ post_form.start_date }}
+                                        <label for="id_start_date">* Start Date</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end_date -->
+                            <div class="col-12 col-md-6">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text bg-secondary bg-opacity-25 text-dark d-none d-md-flex">
+                                        <i class="fas fa-calendar-times fa-fw"></i>
+                                    </span>
+                                    <div class="form-floating flex-grow-1">
+                                        {{ post_form.end_date }}
+                                        <label for="id_end_date">* End Date</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- airline and route fields -->
+                        <div class="row">
+                            <div class="col-12 col-md-6">
+                                <!-- airline -->
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text bg-secondary bg-opacity-25 text-dark d-none d-md-flex">
+                                        <i class="fas fa-plane fa-fw"></i>
+                                    </span>
+                                    <div class="form-floating flex-grow-1">
+                                        {{ post_form.airline }}
+                                        <label for="id_airline">* Airline</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- route_type -->
+                            <div class="col-12 col-md-6">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text bg-secondary bg-opacity-25 text-dark d-none d-md-flex">
+                                        <i class="fas fa-route fa-fw"></i>
+                                    </span>
+                                    <div class="form-floating flex-grow-1">
+                                        {{ post_form.route_type }}
+                                        <label for="id_route_type">* Route Type</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- departure and arrival airport fields -->
+                        <div class="row">
+                            <!-- departure_airport -->
+                            <div class="col-12 col-md-6">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text bg-secondary bg-opacity-25 text-dark d-none d-md-flex">
+                                        <i class="fas fa-plane-departure fa-fw"></i>
+                                    </span>
+                                    <div class="form-floating flex-grow-1">
+                                        {{ post_form.departure_airport }}
+                                        <label for="id_departure_airport">* Departure Airport</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- arrival_airport -->
+                            <div class="col-12 col-md-6">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text bg-secondary bg-opacity-25 text-dark d-none d-md-flex">
+                                        <i class="fas fa-plane-arrival fa-fw"></i>
+                                    </span>
+                                    <div class="form-floating flex-grow-1">
+                                        {{ post_form.arrival_airport }}
+                                        <label for="id_arrival_airport">* Arrival Airport</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- rating and status fields -->
+                        <div class="row">
+                            <!-- rating -->
+                            <div class="col-12 col-md-6">
+                                <div class="input-group mb-3">
+                                    <span id="span-range" class="input-group-text bg-secondary bg-opacity-25 text-dark fw-bold px-3">
+                                        10
+                                    </span>
+                                    <div class="form-floating flex-grow-1">
+                                        {{ post_form.rating }}
+                                        <label for="id_rating">* Trip Rating</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- status -->
+                            <div class="col-12 col-md-6">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text bg-secondary bg-opacity-25 text-dark d-none d-md-flex">
+                                        <i class="fas fa-edit fa-fw"></i>
+                                    </span>
+                                    <div class="form-floating flex-grow-1">
+                                        {{ post_form.status }}
+                                        <label for="id_status">* Blog Status</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- body field -->
+                        <div class="input-group mb-3">
+                            <span class="input-group-text bg-secondary bg-opacity-25 text-dark d-none d-md-flex">
+                                <i class="fas fa-blog fa-fw"></i>
+                            </span>
+                            <div class="form-floating flex-grow-1">
+                                {{ post_form.body }}
+                                <label for="id_body">* Blog Content</label>
+                            </div>
+                        </div>
+
+                        <!-- image uploads -->
+                        <hr class="border border-primary border-3 my-5">
+                        <div class="row">
+                            <div class="col mx-auto text-center">
+                                <h3>Image Upload(s)</h3>
+                            </div>
+                        </div>
+                        <!-- filepond widget -->
+                        <input type="file" id="image-upload" data-max-file-size="10MB" multiple>
+
+                    </div>
+
+                    <div class="card-footer bg-bt-primary-dark text-light">
+                        <div class="row my-3">
+                            <div class="col text-center">
+                                <!-- submit form -->
+                                <span class="btn btn-primary" id="submit-btn">Submit</span>
+                                <!-- cancel button -->
+                                <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-danger">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </fieldset>
+
+            </form>
+        </div>
+
+    </div>
+</section>
+{% endblock %}
+
+{% block js %}
+<!-- filepond -->
+<script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+<script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
+<script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
+<script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
+
+<script>
+/* jshint esversion: 11 */
+$(document).ready(function() {
+
+    // convert blog post title to slug-format on front-end
+    let title = document.getElementById("id_title");
+    let slug = document.getElementById("id_slug");
+    title?.addEventListener("keyup", convertToSlug);
+    slug?.addEventListener("keyup", convertToSlug);
+    function convertToSlug() {
+        slug.value = title.value.toLowerCase()
+            .replace(/ /g, '-')
+            .replace(/[^\w-]+/g, '');
+    }
+
+    // ensure end_date is on/after start-date
+    $(window).on("load", function() {
+        if ($("#id_end_date") != "") {
+            $("#id_end_date").prop("disabled", false);
+        }
+    });
+    $("#id_start_date").on("change", setEndDateMin);
+    function setEndDateMin() {
+        let startDate = $("#id_start_date").val();
+        if (startDate != "") {
+            $("#id_end_date").prop("disabled", false).val(startDate);
+        } else {
+            $("#id_end_date").prop("disabled", true).val("");
+        }
+        $("#id_end_date").prop("min", startDate);
+    }
+
+    // dynamically update the visible rating on range-slide
+    $("#id_rating").on("change input keyup", function() {
+        let rating = $("#id_rating").val();
+        $("#span-range").text(rating);
+    });
+
+    // filepond image uploads (partial inspiration: YouTube - The Pylot)
+    let images = [];
+    const imageInput = document.getElementById("image-upload");
+    FilePond.registerPlugin(
+        FilePondPluginImagePreview,
+        FilePondPluginFileValidateSize,
+        FilePondPluginFileValidateType
+    );
+    FilePond.setOptions({
+        allowMultiple: true,
+        maxFiles: 20,
+        maxFileSize: "10MB"
+    });
+    const pond = FilePond.create(imageInput, {
+        acceptedFileTypes: ["image/png", "image/jpg", "image/jpeg", "image/webp"],
+        onaddfile: (err, img) => {
+            if (!err) {
+                images.push(img.file);
+            }
+        },
+        onremovefile: (err, img) => {
+            const imageIndex = images.indexOf(img.file);
+            if (imageIndex > -1) {
+                images.splice(imageIndex, 1);
+            }
+        }
+    });
+
+    // append all form data to prepare AJAX call
+    let formData = new FormData();
+    // form being submitted (partial inspiration: YouTube - The Pylot)
+    $("#submit-btn").on("click", function(e) {
+        // add CSRF token to formData
+        formData.append("csrfmiddlewaretoken", $("input[name='csrfmiddlewaretoken']").val());
+
+        // length of images array
+        formData.append("length", images.length);
+
+        let formFields = $("input[id^='id_'], select[id^='id_'], textarea[id^='id_']");
+        $(formFields).each(function() {
+            let fieldId = $(this).attr("id");
+            let fieldKey = fieldId.replace("id_", "");
+            // handle TinyMCE fields
+            if ($(this).hasClass("tinymce")) {
+                let tinyVal = tinyMCE.get(fieldId).getContent();
+                formData.append(fieldKey, tinyVal);
+            } else {
+                formData.append(fieldKey, $(this).val());
+            }
+        });
+        images.forEach((img, i) => {
+            formData.append(`image-${i}`, img);
+        });
+
+        // partial inspiration: YouTube - The Pylot
+        if ($("form#post-form")[0].checkValidity()) {
+            $("body").removeClass("page-load-complete"); // show preloader animation
+            $.ajax({
+                url: $(this).attr("action"),
+                type: "POST",
+                data: formData,
+                cache: false,
+                processData: false,
+                contentType: false,
+                enctype: "multipart/form-data",
+                success: function() {
+                    console.log("Post successful!");
+                    window.location.href = "/blog/post/new/submit/"
+                },
+                error: function(data) {
+                    let errText = data.responseText;
+                    // specific error is between `<pre></pre>` elements
+                    let errMsg = errText.match(/<pre>[\s\S]*?<\/pre>/g)[0];
+                    // remove `<pre></pre>` tags and trim excess whitespace
+                    console.log(errMsg.replace("<pre>", "").replace("</pre>", "").trim());
+                }
+            });
+        }
+
+    });
+
+});
+</script>
+{% endblock %}
