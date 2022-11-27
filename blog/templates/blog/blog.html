@@ -40,15 +40,17 @@
             <div class="col-12 col-lg-8 order-2 order-lg-1">
                 <div class="row">
 
-                    {% for post in posts %}
+                    {% for blog in posts %}
                         <div class="col-12 card blog-card mb-5 mx-0 p-0 shadow">
                             <div class="row g-0">
                                 <!-- even forloop.counter gets "order-md-2" -->
                                 <div class="col-md-4 order-1 {% if forloop.counter|divisibleby:2 %}order-md-2{% endif %}">
                                     <div class="blog-card-img-wrapper">
-                                        <img src="https://assets.2bn.dev/flags/full/{{ post.country|lower }}.png" class="img-fluid blog-card-img" alt="Flag of {{ post.country.name }}">
+                                        <img src="{{ blog.img.image.url }}"
+                                            class="img-fluid blog-card-img bg-white" alt="Flag of {{ post.country.name }}"
+                                            onError="this.onerror=null;this.src='{{ MEDIA_URL }}no-image.png';">
                                         <span class="blog-card-img-text fw-bold text-white text-uppercase text-center text-shadow p-2">
-                                            {{ post.country.name }}
+                                            {{ blog.post.country.name }}
                                         </span>
                                     </div>
                                 </div>
@@ -57,25 +59,25 @@
                                     <div class="card-body">
                                         <h6 class="text-bt-primary">
                                             <small>
-                                                {{ post.date_created|date:"F d, Y" }}
+                                                {{ blog.post.date_created|date:"F d, Y" }}
                                             </small>
                                         </h6>
                                         <h5 class="card-title fw-bold">
                                             <a href="">
-                                                {{ post.title }}
+                                                {{ blog.post.title }}
                                             </a>
                                         </h5>
                                         <p class="card-text">
-                                            {{ post.body|safe|striptags|truncatewords_html:50 }}
+                                            {{ blog.post.body|safe|striptags|truncatewords_html:50 }}
                                         </p>
-                                        {% if post.date_created|date:"F d, Y" != post.date_updated|naturalday:"F d, Y" %}
+                                        {% if blog.post.date_created|naturalday:"F d, Y" != blog.post.date_updated|naturalday:"F d, Y" %}
                                             <p class="card-text">
                                                 <small class="text-muted">Last updated
-                                                    {{ post.date_updated|naturalday:"F d, Y" }}
+                                                    {{ blog.post.date_updated|naturalday:"F d, Y" }}
                                                 </small>
                                             </p>
                                         {% endif %}
-                                        <a href="{% url 'blog_post' post.country.name|slugify|lower post.date_created|date:'Y' post.date_created|date:'m' post.date_created|date:'d' post.id post.slug %}"
+                                        <a href="{% url 'post' blog.post.country.name|slugify|lower blog.post.date_created|date:'Y' blog.post.date_created|date:'m' blog.post.date_created|date:'d' blog.post.id blog.post.slug %}"
                                             class="btn btn-primary bg-bt-primary-darkest">Read More
                                         </a>
                                     </div>
