@@ -100,9 +100,13 @@ textarea {
     min-height: 150px !important;
 }
 
+textarea.tinymce {
+    min-height: 500px !important;
+}
+
 .form-control:focus {
     border-color: rgba(var(--bt-primary), 1);
-    box-shadow: 0 0 0 .25rem rgba(var(--bt-primary), 0.25);
+    box-shadow: 0 0 0 .15rem rgba(var(--bt-primary), 0.25);
 }
 
 .btn.bg-bt-primary-light {
@@ -308,7 +312,7 @@ aside#overlay.hide {
     height: 76px;
 }
 
-.alert {
+.alert:not(#form-errors) {
     width: 100%;
     z-index: 1002;
     margin-bottom: 2px;
@@ -333,19 +337,22 @@ aside#overlay.hide {
     cursor: pointer;
     position: fixed;
     padding: 0.5em;
-    bottom: -5em;
+    bottom: -2em;
     left: 50%;
     transform: translateX(-50%);
     font-weight: bold;
     opacity: 0.75;
     z-index: 1000;
-    border-radius: 8px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
     border: 2px solid rgba(var(--bt-primary-darkest), 1);
+    border-bottom: unset;
     transition: all 0.5s ease-in-out;
 }
 
 #btn-top:hover {
     opacity: 1;
+    bottom: 0 !important;
 }
 
 /* MODAL */
@@ -602,6 +609,11 @@ figure.drinks-gallery-img:hover figcaption {
 
 .blog-image-thumb {
     object-fit: cover;
+}
+
+/* PAGINATION */
+.page-link:focus {
+    box-shadow: unset;
 }
 
 /* FOOTER */
