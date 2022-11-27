@@ -21,10 +21,11 @@
                             {% if not request.GET.country %}aria-current="true"{% endif %}>
                                 ALL
                         </a>
-                        {% for country in countries %}
+                        {% for country in countries|dictsort:"full" %}
                             <a href="{% url 'blog' %}?country={{ country.iso }}#blogs"
                                 class="list-group-item list-group-item-action {% if request.GET.country == country.iso %}active{% endif %}"
                                 {% if request.GET.country == country.iso %}aria-current="true"{% endif %}>
+                                <img src="https://assets.2bn.dev/flags/icon/{{ country.iso|lower }}.png" class="img-fluid" alt="Flag of {{ country.full }}">
                                     {{ country.full }}
                             </a>
                         {% endfor %}
