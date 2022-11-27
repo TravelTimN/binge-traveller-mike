@@ -8,7 +8,7 @@ class PostImageAdmin(admin.StackedInline):
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     inlines = [PostImageAdmin]
-    list_display = ("title", "destination", "country", "start_date", "end_date", "status",)
+    list_display = ("title", "destination", "country", "start_date", "end_date", "status", "views",)
     prepopulated_fields = {"slug": ("title",)}
 
 
