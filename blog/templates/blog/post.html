@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block css %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.css"
+        integrity="sha512-Woz+DqWYJ51bpVk5Fv0yES/edIMXjj3Ynda+KWTIkGoynAMHrqTcDUQltbipuiaD5ymEo9520lyoVOo9jCQOCA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+{% endblock %}
+
+{% block content %}
+    {% if images|length > 0 %}
+        <!-- blog hero carousel -->
+        <section id="blog-hero-carousel" class="shadow carousel slide carousel-fade m-0 p-0" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                {% for image in images %}
+                    <button type="button" data-bs-target="#blog-hero-carousel" data-bs-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active" aria-current="true"{% endif %} aria-label="Slide 1"></button>
+                {% endfor %}
+            </div>
+            <div class="carousel-inner">
+                {% for image in images %}
+                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                        <img src="{{ image.image.url }}" class="d-block w-100 img-fluid" alt="{{ image.post.title }}">
+                        <div class="carousel-caption rounded-4">
+                            <h2 class="d-none d-md-block">{{ image.post.title }}</h2>
+                            <h5 class="d-md-none">{{ image.post.title }}</h5>
+                            <p class="p-0 m-0">
+                                <a href="{% url 'home' %}" class="d-none d-md-inline-block">Home</a>
+                                <span class="d-none d-md-inline-block mx-3">|</span>
+                                <a href="{% url 'blog' %}#blogs" class="d-none d-md-inline-block">Blog</a>
+                                <span class="d-none d-md-inline-block mx-3">|</span>
+                                <a href="{% url 'blog' %}?country={{ image.post.country }}#blogs" class="text-bt-primary">{{ image.post.country.name }}</a>
+                            </p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#blog-hero-carousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#blog-hero-carousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </section>
+    {% endif %}
+
+    <!-- blog -->
+    <section id="blogs" class="container pt-0 scroll-margin-top">
+        <div class="row my-5 mx-1">
+
+            <!-- sidebar menus -->
+            {% include "blog/partials/sidebar.html" %}
+
+            <!-- the blog -->
+            <div class="col-12 col-lg-8 order-2 order-lg-1">
+
+                <!-- first 3 post images -->
+                <div class="row">
+                    {% for image in images %}
+                        {% if forloop.counter <= 3 %}
+                            <div class="col-4 mb-3">
+                                <a href="{{ image.image.url }}" data-lightbox="{{ image.post.slug }}">
+                                    <img src="{{ image.image.url }}" class="img-fluid h-100 blog-image-thumb" alt="{{ image.post.title }}">
+                                </a>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+                <div class="row">
+                    <div class="col-12 my-3">
+                        <small>
+                            <i class="far fa-calendar-alt"></i>
+                            {{ post.date_created|date:"F d, Y" }}
+                            <span class="mx-1 mx-md-3">|</span>
+                            <i class="fas fa-user"></i>
+                            Mike
+                            <span class="mx-1 mx-md-3">|</span>
+                            <img src="https://assets.2bn.dev/flags/icon/{{ post.country|lower }}.png" class="img-fluid" alt="Flag of {{ post.country.name }}">
+                            {{ post.country.name }}
+                        </small>
+                    </div>
+                </div>
+
+                <div class="row my-3">
+                    <div class="col">
+                        <h2 class="fs-1 fw-bold">{{ post.title }}</h2>
+                    </div>
+                </div>
+
+                <div class="row mb-5">
+                    <div class="col">
+                        <!-- share button -->
+                        <a class="btn btn-primary" id="share-btn">
+                            <span class="hide-on-small-and-down">SHARE</span>
+                            <i class="fas fa-share-alt" aria-hidden="true"></i></a>
+                        </a>
+                        <!-- share toast (success) -->
+                        <div aria-live="polite" aria-atomic="true" class="position-relative">
+                            <div class="toast-container position-fixed bottom-0 end-0 mb-5 pe-5">
+                                <div id="toast-success" class="toast bg-dark text-light" role="alert" aria-live="assertive" aria-atomic="true">
+                                    <div class="d-flex">
+                                        <div class="toast-body">
+                                            <i class="fas fa-clipboard-check text-success me-3"></i>
+                                            Copied to Clipboard
+                                        </div>
+                                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- share toast (error) -->
+                        <div aria-live="polite" aria-atomic="true" class="position-relative">
+                            <div class="toast-container position-fixed bottom-0 end-0 mb-5 pe-5">
+                                <div id="toast-error" class="toast bg-dark text-light" role="alert" aria-live="assertive" aria-atomic="true">
+                                    <div class="d-flex">
+                                        <div class="toast-body">
+                                            <i class="fas fa-exclamation-circle text-danger me-3"></i>
+                                            Error Copying to Clipboard
+                                        </div>
+                                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        {{ post.body|safe }}
+                    </div>
+                </div>
+
+                <!-- all remaining post images -->
+                <div class="row">
+                    {% for image in images %}
+                        {% if forloop.counter > 3 %}
+                            <div class="col-4 mb-3">
+                                <a href="{{ image.image.url }}" data-lightbox="{{ image.post.slug }}">
+                                    <img src="{{ image.image.url }}" class="img-fluid h-100 blog-image-thumb" alt="{{ image.post.title }}">
+                                </a>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block js %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"
+        integrity="sha512-k2GFCTbp9rQU412BStrcD/rlwv1PYec9SNrkbQlo6RZCf75l6KcC3UwDY8H5n5hl4v77IDtIPwOk9Dqjs/mMBQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <script>
+        // share toast (bootstrap)
+        $("#share-btn").on("click", function() {
+            let postUrl = $(location).attr("href");
+            let textToCopy = postUrl;
+            navigator.clipboard.writeText(textToCopy).then(function() {
+                let shareToast = document.getElementById("toast-success");
+                let bsToast = new bootstrap.Toast(shareToast);
+                bsToast.show();
+            }, function(err) {
+                let shareToast = document.getElementById("toast-error");
+                let bsToast = new bootstrap.Toast(shareToast);
+                bsToast.show();
+                console.error("Error: could not copy text - ", err);
+            });
+        });
+    </script>
+{% endblock %}
