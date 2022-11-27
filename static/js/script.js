@@ -36,12 +36,23 @@ window.addEventListener("resize", viewportMagic, true);
 window.addEventListener("scroll", viewportMagic, true);
 function viewportMagic() {
     if (window.scrollY > 750) {
-        btnTop.style.cssText = "bottom: 0.25em;";
+        btnTop.style.cssText = "bottom: 0;";
     } else {
-        btnTop.style.cssText = "bottom: -3em;";
+        btnTop.style.cssText = "bottom: -2em;";
     }
 }
 
+// ignore octothorp (#)
+btnTop.addEventListener("click", function (e) {
+    if (this.hash !== "") {
+        e.preventDefault();
+        let hash = document.getElementById(this.hash.replace("#", ""));
+        let hashOffset = hash.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({
+            top: hashOffset - 75
+        });
+    }
+});
 
 /* ----- NAVBAR LINKS ----- */
 
