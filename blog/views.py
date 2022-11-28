@@ -179,3 +179,43 @@ def post_submit(request):
     post_id = last_post.id
     slug = last_post.slug
     return redirect(post, country, year, month, day, post_id, slug)
+
+
+@validate_user()
+def post_edit(request, id):
+    """ A view to edit an existing blog post """
+    get_post = get_object_or_404(Post, id=id)
+    post_form = PostForm(request.POST or None, request.FILES or None, instance=get_post)
+    if request.method == "POST":
+        if post_form.is_valid():
+            # save the post form data
+            # imgs_length = request.POST.get("length")
+            existing_post = post_form.save()
+
+            # grab new post data for redirect url
+            country = existing_post.country
+            year = existing_post.start_date.strftime("%Y")
+            month = existing_post.start_date.strftime("%m")
+            day = existing_post.start_date.strftime("%d")
+            post_id = existing_post.pk
+            slug = existing_post.slug
+
+            # # get each image submitted as well
+            # # (partial inspiration from YouTube - The Pylot)
+            # images = []
+            # for n in range(0, int(imgs_length)):
+            #     images.append(PostImage(
+            #         post=existing_post,
+            #         image=request.FILES.get(f"image-{n}")
+            #     ))
+            # PostImage.objects.bulk_create(images)
+            messages.success(request, f"{existing_post.title} updated!")
+            print(f"{existing_post.title} updated!")
+            return redirect(post, country, year, month, day, post_id, slug)
+        messages.error(request, "Error: Please Try Again.")
+    template = "blog/post_edit.html"
+    context = {
+        "post": get_post,
+        "post_form": post_form,
+    }
+    return render(request, template, context)
