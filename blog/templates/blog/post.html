@@ -80,6 +80,18 @@
                             <span class="mx-1 mx-md-3">|</span>
                             <img src="https://assets.2bn.dev/flags/icon/{{ post.country|lower }}.png" class="img-fluid" alt="Flag of {{ post.country.name }}">
                             {{ post.country.name }}
+                            {% if request.user.is_authenticated %}
+                                <span class="mx-1 mx-md-3">|</span>
+                                <a href="{% url 'post_edit' post.id %}" class="text-primary">
+                                    <i class="fas fa-edit"></i>
+                                    Edit
+                                </a>
+                                <span class="mx-1 mx-md-3">|</span>
+                                <a href="" class="text-danger">
+                                    <i class="fas fa-trash-alt"></i>
+                                    Delete
+                                </a>
+                            {% endif %}
                         </small>
                     </div>
                 </div>
