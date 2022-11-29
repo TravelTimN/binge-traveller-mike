@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+
+{% block css %}
+    <!-- filepond -->
+    <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet">
+    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<section class="container-fluid">
+    <div class="row">
+
+        <!-- form data -->
+        <div class="col-12 col-lg-10 col-xl-8 mx-auto py-5 px-2 px-md-5">
+            <form id="post-form" method="POST" action="{% url 'post_new_images' post.id %}" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <fieldset class="card shadow">
+                    <legend class="card-header bg-bt-primary-darkest text-light text-center">Step 2: Upload Images</legend>
+
+                    <div class="card-body">
+
+                        <!-- form errors (if applicable) -->
+                        <div id="form-errors" class="alert alert-danger mb-3 d-none">
+                            Error: <span id="error-msg"></span>
+                        </div>
+
+                        <!-- filepond widget -->
+                        <input type="file" id="image-upload" data-max-file-size="10MB" multiple>
+
+                    </div>
+
+                    <div class="card-footer bg-bt-primary-dark text-light">
+                        <div class="row my-3">
+                            <div class="col text-center">
+                                <!-- submit form -->
+                                <span class="btn btn-primary" id="submit-btn">Upload Images</span>
+                                <!-- cancel button -->
+                                <a href="{% url 'post' post.country.name|slugify post.start_date|date:'Y' post.start_date|date:'m' post.start_date|date:'d' post.id post.slug %}"
+                                    class="btn btn-danger">
+                                    Cancel
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </fieldset>
+
+            </form>
+        </div>
+
+    </div>
+</section>
+{% endblock %}
+
+{% block js %}
+<!-- filepond -->
+<script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+<script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
+<script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
+<script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
+
+<script>
+/* jshint esversion: 11 */
+$(document).ready(function() {
+
+    // filepond image uploads (partial inspiration: YouTube - The Pylot)
+    let images = [];
+    const imageInput = document.getElementById("image-upload");
+    FilePond.registerPlugin(
+        FilePondPluginImagePreview,
+        FilePondPluginFileValidateSize,
+        FilePondPluginFileValidateType
+    );
+    FilePond.setOptions({
+        allowMultiple: true,
+        maxFiles: 20,
+        maxFileSize: "10MB"
+    });
+    const pond = FilePond.create(imageInput, {
+        acceptedFileTypes: ["image/png", "image/jpg", "image/jpeg", "image/webp"],
+        onaddfile: (err, img) => {
+            if (!err) {
+                images.push(img.file);
+            }
+        },
+        onremovefile: (err, img) => {
+            const imageIndex = images.indexOf(img.file);
+            if (imageIndex > -1) {
+                images.splice(imageIndex, 1);
+            }
+        }
+    });
+
+    // append all form data to prepare AJAX call
+    let formData = new FormData();
+    // form being submitted (partial inspiration: YouTube - The Pylot)
+    $("#submit-btn").on("click", function(e) {
+        // add CSRF token to formData
+        formData.append("csrfmiddlewaretoken", $("input[name='csrfmiddlewaretoken']").val());
+
+        // length of images array
+        formData.append("length", images.length);
+
+        images.forEach((img, i) => {
+            formData.append(`image-${i}`, img);
+        });
+
+        // partial inspiration: YouTube - The Pylot
+        if ($("form#post-form")[0].checkValidity()) {
+
+            let country = "{{ post.country.name|slugify }}";
+            let year = "{{ post.start_date|date:'Y' }}";
+            let month = "{{ post.start_date|date:'m' }}";
+            let day = "{{ post.start_date|date:'d' }}";
+            let post_id = "{{ post.id }}";
+            let slug = "{{ post.slug }}";
+
+            $("body").removeClass("page-load-complete"); // show preloader animation
+            $.ajax({
+                url: $("#post-form").attr("action"),
+                type: "POST",
+                data: formData,
+                cache: false,
+                processData: false,
+                contentType: false,
+                enctype: "multipart/form-data",
+                success: function() {
+                    console.log("Post successful!");
+                    window.location.href = `/blog/${country}/${year}/${month}/${day}/${post_id}/${slug}/`;
+                },
+                error: function(data) {
+                    let errText = data.responseText;
+                    // specific error is between `<pre></pre>` elements
+                    let errMsg = errText.match(/<pre>[\s\S]*?<\/pre>/g)[0];
+                    // remove `<pre></pre>` tags and trim excess whitespace
+                    let msg = errMsg.replaceAll("<pre>", "").replaceAll("</pre>", "").replaceAll("&#x27;", "").trim();
+                    $("#error-msg").text(msg);
+                    $("#form-errors").removeClass("d-none");
+                    $("body").addClass("page-load-complete"); // hide preloader animation
+                }
+            });
+        }
+
+    });
+
+});
+</script>
+{% endblock %}
