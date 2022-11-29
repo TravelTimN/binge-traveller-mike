@@ -133,32 +133,15 @@ def post(request, country, year, month, day, id, slug):
 @validate_user()
 def post_new(request):
     """ A view to add a new blog post """
-    post_form = PostForm(request.POST or None, request.FILES or None)
+    post_form = PostForm(request.POST or None)
     if request.method == "POST":
         if post_form.is_valid():
             # save the post form data
-            imgs_length = request.POST.get("length")
             new_post = post_form.save()
 
-            # grab new post data for redirect url
-            country = new_post.country
-            year = new_post.start_date.strftime("%Y")
-            month = new_post.start_date.strftime("%m")
-            day = new_post.start_date.strftime("%d")
-            post_id = new_post.pk
-            slug = new_post.slug
-
-            # get each image submitted as well
-            # (partial inspiration from YouTube - The Pylot)
-            images = []
-            for n in range(0, int(imgs_length)):
-                images.append(PostImage(
-                    post=new_post,
-                    image=request.FILES.get(f"image-{n}")
-                ))
-            PostImage.objects.bulk_create(images)
             messages.success(request, f"{new_post.title} added!")
-            return redirect(post, country, year, month, day, post_id, slug)
+            return redirect(post_new_images, id=new_post.pk)
+
         messages.error(request, "Error: Please Try Again.")
     template = "blog/post_new.html"
     context = {
@@ -168,28 +151,44 @@ def post_new(request):
 
 
 @validate_user()
-def post_submit(request):
-    """ A view to get the most recently submitted blog post """
-    last_post = Post.objects.order_by("id").last()
-    # grab post data for redirect url
-    country = last_post.country
-    year = last_post.start_date.strftime("%Y")
-    month = last_post.start_date.strftime("%m")
-    day = last_post.start_date.strftime("%d")
-    post_id = last_post.id
-    slug = last_post.slug
-    return redirect(post, country, year, month, day, post_id, slug)
+def post_new_images(request, id):
+    """ A view to add images to a new blog post """
+    blog_post = get_object_or_404(Post, id=id)
+    if request.method == "POST":
+
+        # get each image submitted
+        # (partial inspiration from YouTube - The Pylot)
+        imgs_length = request.POST.get("length")
+        images = []
+        for n in range(0, int(imgs_length)):
+            images.append(PostImage(
+                post=blog_post,
+                image=request.FILES.get(f"image-{n}")
+            ))
+        PostImage.objects.bulk_create(images)
+        messages.success(request, f"{imgs_length} images added!")
+        return redirect(
+            post, blog_post.country,
+            blog_post.start_date.strftime("%Y"),
+            blog_post.start_date.strftime("%m"),
+            blog_post.start_date.strftime("%d"),
+            blog_post.id, blog_post.slug
+        )
+    template = "blog/post_new_images.html"
+    context = {
+        "post": blog_post,
+    }
+    return render(request, template, context)
 
 
 @validate_user()
 def post_edit(request, id):
     """ A view to edit an existing blog post """
     get_post = get_object_or_404(Post, id=id)
-    post_form = PostForm(request.POST or None, request.FILES or None, instance=get_post)
+    post_form = PostForm(request.POST or None, instance=get_post)
     if request.method == "POST":
         if post_form.is_valid():
             # save the post form data
-            # imgs_length = request.POST.get("length")
             existing_post = post_form.save()
 
             # grab new post data for redirect url
@@ -199,16 +198,6 @@ def post_edit(request, id):
             day = existing_post.start_date.strftime("%d")
             post_id = existing_post.pk
             slug = existing_post.slug
-
-            # # get each image submitted as well
-            # # (partial inspiration from YouTube - The Pylot)
-            # images = []
-            # for n in range(0, int(imgs_length)):
-            #     images.append(PostImage(
-            #         post=existing_post,
-            #         image=request.FILES.get(f"image-{n}")
-            #     ))
-            # PostImage.objects.bulk_create(images)
             messages.success(request, f"{existing_post.title} updated!")
             print(f"{existing_post.title} updated!")
             return redirect(post, country, year, month, day, post_id, slug)
