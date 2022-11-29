@@ -5,12 +5,6 @@
     {{ post_form.media }}
 {% endblock %}
 
-{% block css %}
-    <!-- filepond -->
-    <!-- <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet">
-    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet"> -->
-{% endblock %}
-
 {% block content %}
 <section class="container-fluid">
     <div class="row">
@@ -199,16 +193,6 @@
                             </div>
                         </div>
 
-                        <!-- image uploads -->
-                        <!-- <hr class="border border-primary border-3 my-5">
-                        <div class="row">
-                            <div class="col mx-auto text-center">
-                                <h3>Image Upload(s)</h3>
-                            </div>
-                        </div> -->
-                        <!-- filepond widget -->
-                        <!-- <input type="file" id="image-upload" data-max-file-size="10MB" multiple> -->
-
                     </div>
 
                     <div class="card-footer bg-bt-primary-dark text-light">
@@ -216,7 +200,6 @@
                             <div class="col text-center">
                                 <!-- submit form -->
                                 <button class="btn btn-primary" id="sbmit-btn">Submit</button>
-                                <!-- <span class="btn btn-primary" id="submit-btn">Submit</span> -->
                                 <!-- cancel button -->
                                 <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-danger">Cancel</a>
                             </div>
@@ -233,12 +216,6 @@
 {% endblock %}
 
 {% block js %}
-<!-- filepond -->
-<!-- <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
-<script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
-<script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
-<script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script> -->
-
 <script>
 /* jshint esversion: 11 */
 $(document).ready(function() {
@@ -246,6 +223,7 @@ $(document).ready(function() {
     // convert blog post title to slug-format on front-end
     let title = document.getElementById("id_title");
     let slug = document.getElementById("id_slug");
+    window.addEventListener("load", convertToSlug);
     title?.addEventListener("keyup", convertToSlug);
     slug?.addEventListener("keyup", convertToSlug);
     function convertToSlug() {
@@ -280,87 +258,6 @@ $(document).ready(function() {
         let rating = $("#id_rating").val();
         $("#span-range").text(rating);
     });
-
-    // // filepond image uploads (partial inspiration: YouTube - The Pylot)
-    // let images = [];
-    // const imageInput = document.getElementById("image-upload");
-    // FilePond.registerPlugin(
-    //     FilePondPluginImagePreview,
-    //     FilePondPluginFileValidateSize,
-    //     FilePondPluginFileValidateType
-    // );
-    // FilePond.setOptions({
-    //     allowMultiple: true,
-    //     maxFiles: 20,
-    //     maxFileSize: "10MB"
-    // });
-    // const pond = FilePond.create(imageInput, {
-    //     acceptedFileTypes: ["image/png", "image/jpg", "image/jpeg", "image/webp"],
-    //     onaddfile: (err, img) => {
-    //         if (!err) {
-    //             images.push(img.file);
-    //         }
-    //     },
-    //     onremovefile: (err, img) => {
-    //         const imageIndex = images.indexOf(img.file);
-    //         if (imageIndex > -1) {
-    //             images.splice(imageIndex, 1);
-    //         }
-    //     }
-    // });
-
-    // // append all form data to prepare AJAX call
-    // let formData = new FormData();
-    // // form being submitted (partial inspiration: YouTube - The Pylot)
-    // $("#submit-btn").on("click", function(e) {
-    //     // add CSRF token to formData
-    //     formData.append("csrfmiddlewaretoken", $("input[name='csrfmiddlewaretoken']").val());
-
-    //     // length of images array
-    //     formData.append("length", images.length);
-
-    //     let formFields = $("input[id^='id_'], select[id^='id_'], textarea[id^='id_']");
-    //     $(formFields).each(function() {
-    //         let fieldId = $(this).attr("id");
-    //         let fieldKey = fieldId.replace("id_", "");
-    //         // handle TinyMCE fields
-    //         if ($(this).hasClass("tinymce")) {
-    //             let tinyVal = tinyMCE.get(fieldId).getContent();
-    //             formData.append(fieldKey, tinyVal);
-    //         } else {
-    //             formData.append(fieldKey, $(this).val());
-    //         }
-    //     });
-    //     images.forEach((img, i) => {
-    //         formData.append(`image-${i}`, img);
-    //     });
-
-    //     // partial inspiration: YouTube - The Pylot
-    //     if ($("form#post-form")[0].checkValidity()) {
-    //         $("body").removeClass("page-load-complete"); // show preloader animation
-    //         $.ajax({
-    //             url: $(this).attr("action"),
-    //             type: "POST",
-    //             data: formData,
-    //             cache: false,
-    //             processData: false,
-    //             contentType: false,
-    //             enctype: "multipart/form-data",
-    //             success: function() {
-    //                 console.log("Post successful!");
-    //                 window.location.href = "/blog/post/new/submit/"
-    //             },
-    //             error: function(data) {
-    //                 let errText = data.responseText;
-    //                 // specific error is between `<pre></pre>` elements
-    //                 let errMsg = errText.match(/<pre>[\s\S]*?<\/pre>/g)[0];
-    //                 // remove `<pre></pre>` tags and trim excess whitespace
-    //                 console.log(errMsg.replace("<pre>", "").replace("</pre>", "").trim());
-    //             }
-    //         });
-    //     }
-
-    // });
 
 });
 </script>
