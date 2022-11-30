@@ -33,6 +33,11 @@ class Post(models.Model):
     )
     status = models.CharField(choices=STATUS, max_length=25, null=False, blank=False)
     body = HTMLField(null=False, blank=False)
+    max_images = models.PositiveIntegerField(
+        default=20,
+        validators=[MinValueValidator(0), MaxValueValidator(20)],
+        null=False, blank=False
+    )
     views = models.IntegerField(default=0)
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
