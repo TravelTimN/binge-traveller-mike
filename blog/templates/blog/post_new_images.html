@@ -25,6 +25,13 @@
                             Error: <span id="error-msg"></span>
                         </div>
 
+                        <!-- remaining images left -->
+                        <div id="image-counter" class="alert alert-success text-center mb-3">
+                            You may upload up to {{ post.max_images }} image{% if post.max_images != 1 %}s{% endif %}.
+                            <br>
+                            You have <span id="images-remaining" class="fw-bold">{{ post.max_images }}</span> remaining.
+                        </div>
+
                         <!-- filepond widget -->
                         <input type="file" id="image-upload" data-max-file-size="10MB" multiple>
 
@@ -32,13 +39,16 @@
 
                     <div class="card-footer bg-bt-primary-dark text-light">
                         <div class="row my-3">
-                            <div class="col text-center">
+                            <div class="col d-flex justify-content-around">
                                 <!-- submit form -->
-                                <span class="btn btn-primary" id="submit-btn">Upload Images</span>
-                                <!-- cancel button -->
+                                <span class="btn btn-primary position-relative mx-3" id="submit-btn">
+                                    Upload Images
+                                    <span id="image-count-btn" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark"></span>
+                                </span>
+                                <!-- button to continue without uploading images -->
                                 <a href="{% url 'post' post.country.name|slugify post.start_date|date:'Y' post.start_date|date:'m' post.start_date|date:'d' post.id post.slug %}"
-                                    class="btn btn-danger">
-                                    Cancel
+                                    class="btn btn-warning">
+                                    Skip
                                 </a>
                             </div>
                         </div>
@@ -66,6 +76,7 @@ $(document).ready(function() {
 
     // filepond image uploads (partial inspiration: YouTube - The Pylot)
     let images = [];
+    let maxImages = parseInt("{{ post.max_images }}");
     const imageInput = document.getElementById("image-upload");
     FilePond.registerPlugin(
         FilePondPluginImagePreview,
@@ -74,7 +85,7 @@ $(document).ready(function() {
     );
     FilePond.setOptions({
         allowMultiple: true,
-        maxFiles: 20,
+        maxFiles: maxImages,
         maxFileSize: "10MB"
     });
     const pond = FilePond.create(imageInput, {
@@ -82,15 +93,57 @@ $(document).ready(function() {
         onaddfile: (err, img) => {
             if (!err) {
                 images.push(img.file);
+                updateImgsLen();
+                submitBtnVisibility();
             }
         },
         onremovefile: (err, img) => {
             const imageIndex = images.indexOf(img.file);
             if (imageIndex > -1) {
                 images.splice(imageIndex, 1);
+                updateImgsLen();
+                submitBtnVisibility();
             }
         }
     });
+
+    // unhide submit button if >0 images to upload
+    $("#submit-btn").css("pointer-events", "none");
+    function submitBtnVisibility() {
+        if (images.length > 0) {
+            $("#submit-btn").css("pointer-events", "auto");
+        } else {
+            $("#submit-btn").css("pointer-events", "none");
+        }
+    }
+
+    // advise how many remaining images available
+    function updateImgsLen() {
+        let imageCounterDiv = $("#image-counter");
+        let imageCountBtn = $("#image-count-btn");
+        let imagesRemainSpan = $("#images-remaining");
+        let imagesRemaining = maxImages - images.length;
+        // update alert-color based on number of images (remove class starting with "alert-")
+        if ((images.length / maxImages) * 100 >= 75) {
+            // at least 75% used
+            $(imageCounterDiv).removeClass(function(i, className) {
+                return (className.match(/(^|\s)alert-\S+/g) || []).join(" ");
+            }).addClass("alert-danger");
+        } else if ((images.length / maxImages) * 100 >= 50) {
+            // at least 50% used
+            $(imageCounterDiv).removeClass(function(i, className) {
+                return (className.match(/(^|\s)alert-\S+/g) || []).join(" ");
+            }).addClass("alert-warning");
+        } else {
+            // default - plenty available still
+            $(imageCounterDiv).removeClass(function(i, className) {
+                return (className.match(/(^|\s)alert-\S+/g) || []).join(" ");
+            }).addClass("alert-success");
+        }
+        // update text showing remaining number of images
+        $(imagesRemainSpan).text(imagesRemaining);
+        $(imageCountBtn).text(images.length);
+    }
 
     // append all form data to prepare AJAX call
     let formData = new FormData();
