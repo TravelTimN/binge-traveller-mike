@@ -1,0 +1,202 @@
+{% extends "base.html" %}
+
+{% block css %}
+    <!-- filepond -->
+    <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet">
+    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<section class="container-fluid">
+    <div class="row">
+
+        <!-- form data -->
+        <div class="col-12 col-lg-10 col-xl-8 mx-auto py-5 px-2 px-md-5">
+            <form id="post-form" method="POST" action="{% url 'post_new_images' post.id %}" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <fieldset class="card shadow">
+                    <legend class="card-header bg-bt-primary-darkest text-light text-center">Step 2: Upload Images</legend>
+
+                    <div class="card-body">
+
+                        <!-- form errors (if applicable) -->
+                        <div id="form-errors" class="alert alert-danger mb-3 d-none">
+                            Error: <span id="error-msg"></span>
+                        </div>
+
+                        <!-- remaining images left -->
+                        <div id="image-counter" class="alert alert-success text-center mb-3">
+                            You may upload up to {{ post.max_images }} image{% if post.max_images != 1 %}s{% endif %}.
+                            <br>
+                            You have <span id="images-remaining" class="fw-bold">{{ post.max_images }}</span> remaining.
+                        </div>
+
+                        <!-- filepond widget -->
+                        <input type="file" id="image-upload" data-max-file-size="10MB" multiple>
+
+                    </div>
+
+                    <div class="card-footer bg-bt-primary-dark text-light">
+                        <div class="row my-3">
+                            <div class="col d-flex justify-content-around">
+                                <!-- submit form -->
+                                <span class="btn btn-primary position-relative mx-3" id="submit-btn">
+                                    Upload Images
+                                    <span id="image-count-btn" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark"></span>
+                                </span>
+                                <!-- button to continue without uploading images -->
+                                <a href="{% url 'post' post.country.name|slugify post.start_date|date:'Y' post.start_date|date:'m' post.start_date|date:'d' post.id post.slug %}"
+                                    class="btn btn-warning">
+                                    Skip
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </fieldset>
+
+            </form>
+        </div>
+
+    </div>
+</section>
+{% endblock %}
+
+{% block js %}
+<!-- filepond -->
+<script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+<script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
+<script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
+<script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
+
+<script>
+/* jshint esversion: 11 */
+$(document).ready(function() {
+
+    // filepond image uploads (partial inspiration: YouTube - The Pylot)
+    let images = [];
+    let maxImages = parseInt("{{ post.max_images }}");
+    const imageInput = document.getElementById("image-upload");
+    FilePond.registerPlugin(
+        FilePondPluginImagePreview,
+        FilePondPluginFileValidateSize,
+        FilePondPluginFileValidateType
+    );
+    FilePond.setOptions({
+        allowMultiple: true,
+        maxFiles: maxImages,
+        maxFileSize: "10MB"
+    });
+    const pond = FilePond.create(imageInput, {
+        acceptedFileTypes: ["image/png", "image/jpg", "image/jpeg", "image/webp"],
+        onaddfile: (err, img) => {
+            if (!err) {
+                images.push(img.file);
+                updateImgsLen();
+                submitBtnVisibility();
+            }
+        },
+        onremovefile: (err, img) => {
+            const imageIndex = images.indexOf(img.file);
+            if (imageIndex > -1) {
+                images.splice(imageIndex, 1);
+                updateImgsLen();
+                submitBtnVisibility();
+            }
+        }
+    });
+
+    // unhide submit button if >0 images to upload
+    $("#submit-btn").css("pointer-events", "none");
+    function submitBtnVisibility() {
+        if (images.length > 0) {
+            $("#submit-btn").css("pointer-events", "auto");
+        } else {
+            $("#submit-btn").css("pointer-events", "none");
+        }
+    }
+
+    // advise how many remaining images available
+    function updateImgsLen() {
+        let imageCounterDiv = $("#image-counter");
+        let imageCountBtn = $("#image-count-btn");
+        let imagesRemainSpan = $("#images-remaining");
+        let imagesRemaining = maxImages - images.length;
+        // update alert-color based on number of images (remove class starting with "alert-")
+        if ((images.length / maxImages) * 100 >= 75) {
+            // at least 75% used
+            $(imageCounterDiv).removeClass(function(i, className) {
+                return (className.match(/(^|\s)alert-\S+/g) || []).join(" ");
+            }).addClass("alert-danger");
+        } else if ((images.length / maxImages) * 100 >= 50) {
+            // at least 50% used
+            $(imageCounterDiv).removeClass(function(i, className) {
+                return (className.match(/(^|\s)alert-\S+/g) || []).join(" ");
+            }).addClass("alert-warning");
+        } else {
+            // default - plenty available still
+            $(imageCounterDiv).removeClass(function(i, className) {
+                return (className.match(/(^|\s)alert-\S+/g) || []).join(" ");
+            }).addClass("alert-success");
+        }
+        // update text showing remaining number of images
+        $(imagesRemainSpan).text(imagesRemaining);
+        $(imageCountBtn).text(images.length);
+    }
+
+    // append all form data to prepare AJAX call
+    let formData = new FormData();
+    // form being submitted (partial inspiration: YouTube - The Pylot)
+    $("#submit-btn").on("click", function(e) {
+        // add CSRF token to formData
+        formData.append("csrfmiddlewaretoken", $("input[name='csrfmiddlewaretoken']").val());
+
+        // length of images array
+        formData.append("length", images.length);
+
+        images.forEach((img, i) => {
+            formData.append(`image-${i}`, img);
+        });
+
+        // partial inspiration: YouTube - The Pylot
+        if ($("form#post-form")[0].checkValidity()) {
+
+            let country = "{{ post.country.name|slugify }}";
+            let year = "{{ post.start_date|date:'Y' }}";
+            let month = "{{ post.start_date|date:'m' }}";
+            let day = "{{ post.start_date|date:'d' }}";
+            let post_id = "{{ post.id }}";
+            let slug = "{{ post.slug }}";
+
+            $("body").removeClass("page-load-complete"); // show preloader animation
+            $.ajax({
+                url: $("#post-form").attr("action"),
+                type: "POST",
+                data: formData,
+                cache: false,
+                processData: false,
+                contentType: false,
+                enctype: "multipart/form-data",
+                success: function() {
+                    console.log("Post successful!");
+                    window.location.href = `/blog/${country}/${year}/${month}/${day}/${post_id}/${slug}/`;
+                },
+                error: function(data) {
+                    let errText = data.responseText;
+                    // specific error is between `<pre></pre>` elements
+                    let errMsg = errText.match(/<pre>[\s\S]*?<\/pre>/g)[0];
+                    // remove `<pre></pre>` tags and trim excess whitespace
+                    let msg = errMsg.replaceAll("<pre>", "").replaceAll("</pre>", "").replaceAll("&#x27;", "").trim();
+                    $("#error-msg").text(msg);
+                    $("#form-errors").removeClass("d-none");
+                    $("body").addClass("page-load-complete"); // hide preloader animation
+                }
+            });
+        }
+
+    });
+
+});
+</script>
+{% endblock %}

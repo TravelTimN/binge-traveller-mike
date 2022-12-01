@@ -23,7 +23,7 @@
                     <a class="nav-link mx-2" href="{% url 'about' %}">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link mx-2" href="#">Blog</a>
+                    <a class="nav-link mx-2" href="{% url 'blog' %}">Blog</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link mx-2" href="{% url 'contact' %}">Contact</a>
@@ -40,6 +40,7 @@
                                     {% if request.user|has_group:"Site Admin" %}
                                         <!-- user is a Site Admin -->
                                         <li><a class="dropdown-item" href="#">Manage Blog</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'post_new' %}">New Blog Post</a></li>
                                     {% endif %}
                                     {% if request.user.is_superuser %}
                                         <!-- user is superuser/dev -->
@@ -94,7 +95,7 @@
                 <i class="fas fa-info-circle fa-fw fs-5 me-3"></i>
                 About Me
             </a>
-            <a href="" class="list-group-item list-group-item-action list-group-item-secondary border-0" id="nav-link-about">
+            <a href="{% url 'blog' %}" class="list-group-item list-group-item-action list-group-item-secondary border-0" id="nav-link-blog">
                 <i class="fas fa-blog fa-fw fs-5 me-3"></i>
                 Blog
             </a>
@@ -111,6 +112,10 @@
                     <a href="" class="list-group-item list-group-item-action list-group-item-secondary border-0" id="nav-link-manage">
                         <i class="fas fa-tasks fa-fw fs-5 me-3"></i>
                         Manage Blog
+                    </a>
+                    <a href="{% url 'post_new' %}" class="list-group-item list-group-item-action list-group-item-secondary border-0" id="nav-link-new-post">
+                        <i class="fas fa-tasks fa-fw fs-5 me-3"></i>
+                        New Blog Post
                     </a>
                 {% endif %}
                 {% if request.user.is_superuser %}

@@ -20,6 +20,7 @@ INSTALLED_APPS = [
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
+    "django.contrib.humanize",
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.sites",
@@ -31,6 +32,7 @@ INSTALLED_APPS = [
     "tinymce",
     "accounts",
     "about",
+    "blog",
     "contact",
     "home",
     "django_cleanup.apps.CleanupConfig",  # MUST be last
@@ -61,6 +63,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "main.contexts.map_url_api",
+                "main.contexts.get_args",
             ],
         },
     },

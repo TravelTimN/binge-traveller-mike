@@ -1,0 +1,205 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block css %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.css"
+        integrity="sha512-Woz+DqWYJ51bpVk5Fv0yES/edIMXjj3Ynda+KWTIkGoynAMHrqTcDUQltbipuiaD5ymEo9520lyoVOo9jCQOCA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+{% endblock %}
+
+{% block content %}
+    {% if images|length > 0 %}
+        <!-- blog hero carousel -->
+        <section id="blog-hero-carousel" class="shadow carousel slide carousel-fade m-0 p-0" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                {% for image in images %}
+                    <div class="carousel-item {% if forloop.first %}active{% endif %}" data-bs-interval="2000">
+                        <img src="{{ image.image.url }}" class="d-block w-100 img-fluid" alt="{{ image.post.title }}">
+                        <div class="carousel-caption rounded-4">
+                            <h2 class="d-none d-md-block">{{ image.post.title }}</h2>
+                            <h5 class="d-md-none">{{ image.post.title }}</h5>
+                            <p class="p-0 m-0">
+                                <a href="{% url 'home' %}" class="d-none d-md-inline-block">Home</a>
+                                <span class="d-none d-md-inline-block mx-3">|</span>
+                                <a href="{% url 'blog' %}#blogs" class="d-none d-md-inline-block">Blog</a>
+                                <span class="d-none d-md-inline-block mx-3">|</span>
+                                <a href="{% url 'blog' %}?country={{ image.post.country }}#blogs" class="text-bt-primary">{{ image.post.country.name }}</a>
+                            </p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    {% endif %}
+
+    <!-- blog -->
+    <section id="blogs" class="container pt-0 scroll-margin-top">
+        <div class="row my-5 mx-1">
+
+            <!-- sidebar menus -->
+            {% include "blog/partials/sidebar.html" %}
+
+            <!-- the blog -->
+            <div class="col-12 col-lg-8 order-2 order-lg-1">
+
+                <!-- first 3 post images -->
+                <div class="row">
+                    {% for image in images %}
+                        {% if forloop.counter <= 3 %}
+                            <div class="col-4 mb-3">
+                                <a href="{{ image.image.url }}" data-lightbox="{{ image.post.slug }}">
+                                    <img src="{{ image.image.url }}" class="img-fluid h-100 blog-image-thumb" alt="{{ image.post.title }}">
+                                </a>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+                <div class="row">
+                    <div class="col-12 my-3">
+                        <small>
+                            <i class="far fa-calendar-alt" aria-hidden="true"></i>
+                            {{ post.start_date|date:"M" }} {{ post.start_date|date:"d" }}
+                            {% if post.start_date|date:"M" == post.end_date|date:"M" %}
+                                - {{ post.end_date|date:"d" }}, {{ post.end_date|date:"Y" }}
+                            {% else %}
+                                {% if post.start_date|date:"Y" != post.end_date|date:"Y" %}
+                                    {{ post.start_date|date:"Y" }}
+                                {% endif %}
+                                to {{ post.end_date|date:"M" }} {{ post.end_date|date:"d" }}, {{ post.end_date|date:"Y" }}
+                            {% endif %}
+                            <span class="mx-1 mx-md-3">|</span>
+                            <i class="fas fa-user" aria-hidden="true"></i>
+                            Mike
+                            <span class="mx-1 mx-md-3">|</span>
+                            <img src="https://assets.2bn.dev/flags/icon/{{ post.country|lower }}.png" class="img-fluid" alt="Flag of {{ post.country.name }}">
+                            {{ post.destination }}, {{ post.country.name }}
+                        </small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <i class="fas fa-plane" aria-hidden="true"></i>
+                        {{ post.airline }}, {{ post.route_type }} from {{ post.departure_airport }} to {{ post.arrival_airport }}
+                    </div>
+                </div>
+                {% if request.user.is_authenticated %}
+                    <div class="row">
+                        <div class="col my-3">
+                            <a href="{% url 'post_edit' post.id %}" class="text-primary">
+                                <i class="fas fa-edit" aria-hidden="true"></i>
+                                Edit
+                            </a>
+                            <span class="mx-1 mx-md-3">|</span>
+                            <a href="" class="text-danger">
+                                <i class="fas fa-trash-alt" aria-hidden="true"></i>
+                                Delete
+                            </a>
+                        </div>
+                    </div>
+                {% endif %}
+
+                <div class="row my-3">
+                    <div class="col">
+                        <h2 class="fs-1 fw-bold">{{ post.title }}</h2>
+                        {{ post.date_created|date:"F d, Y" }}
+                        {% if post.date_updated|date:"F d, Y" != post.date_created|date:"F d, Y" %}
+                            <small class="text-muted">(updated: {{ post.date_updated|date:"F d, Y" }})</small>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        {{ post.body|safe }}
+                    </div>
+                </div>
+
+                <!-- all remaining post images -->
+                <div class="row">
+                    {% for image in images %}
+                        {% if forloop.counter > 3 %}
+                            <div class="col-4 mb-3">
+                                <a href="{{ image.image.url }}" data-lightbox="{{ image.post.slug }}">
+                                    <img src="{{ image.image.url }}" class="img-fluid h-100 blog-image-thumb" alt="{{ image.post.title }}">
+                                </a>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+                <!-- share buttons -->
+                <hr class="w-25 mt-5">
+                <div class="row mb-5">
+                    <div class="col">
+                        <div class="row mb-3">
+                            <div class="col">
+                                Share this post:
+                            </div>
+                        </div>
+                        <!-- facebook -->
+                        <a href="" target="_blank" rel="external nofollow noreferrer noopener" data-url="https://www.facebook.com/sharer/sharer.php?u=" id="btn-share-facebook" class="btn btn-lg btn-circle facebook">
+                            <i class="fab fa-facebook-f fa-fw fa-lg" aria-hidden="true"></i>
+                        </a>
+                        <!-- twitter -->
+                        <a href="" target="_blank" rel="external nofollow noreferrer noopener" data-url="https://twitter.com/intent/tweet?url=" id="btn-share-twitter" class="btn btn-lg btn-circle twitter">
+                            <i class="fab fa-twitter fa-fw fa-lg" aria-hidden="true"></i>
+                        </a>
+                        <!-- linkedin -->
+                        <a href="" target="_blank" rel="external nofollow noreferrer noopener" data-url="https://www.linkedin.com/shareArticle?url=" id="btn-share-linkedin" class="btn btn-lg btn-circle linkedin">
+                            <i class="fab fa-linkedin-in fa-fw fa-lg" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- previous and next blog posts -->
+                <hr>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <!-- prev -->
+                        <!-- <slug:country>/<int:year>/<int:month>/<int:day>/<int:id>/<slug:slug> -->
+                        <a href="{% url 'post' prev_post.country.name|slugify prev_post.start_date|date:'Y' prev_post.start_date|date:'m' prev_post.start_date|date:'d' prev_post.id prev_post.slug %}" class="btn btn-outline-primary my-3 w-100 d-flex">
+                            <i class="fas fa-chevron-left fa-lg fa-fw fa-lg fs-2 flex-shrink-1 align-self-center" aria-hidden="true"></i>
+                            <span class="w-100 align-self-center">
+                                PREVIOUS
+                                <br>
+                                <small class="fw-bold">{{ prev_post.title }}</small>
+                            </span>
+                        </a>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <!-- next -->
+                        <a href="{% url 'post' next_post.country.name|slugify next_post.start_date|date:'Y' next_post.start_date|date:'m' next_post.start_date|date:'d' next_post.id next_post.slug %}" class="btn btn-outline-primary my-3 w-100 d-flex">
+                            <span class="w-100 align-self-center">
+                                NEXT
+                                <br>
+                                <small class="fw-bold">{{ next_post.title }}</small>
+                            </span>
+                            <i class="fas fa-chevron-right fa-fw fa-lg fs-2 flex-shrink-1 align-self-center" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block js %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"
+        integrity="sha512-k2GFCTbp9rQU412BStrcD/rlwv1PYec9SNrkbQlo6RZCf75l6KcC3UwDY8H5n5hl4v77IDtIPwOk9Dqjs/mMBQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <script>
+        /* jshint esversion: 11, jquery: true */
+
+        // share button urls
+        let shareBtns = $("a[id^='btn-share-']");
+        $(shareBtns).each(function() {
+            let btnUrl = $(this).data("url") + $(location).attr("href");
+            $(this).attr("href", btnUrl);
+        });
+    </script>
+{% endblock %}
