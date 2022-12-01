@@ -160,6 +160,34 @@
                     {% endfor %}
                 </div>
 
+                <!-- previous and next blog posts -->
+                <hr>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <!-- prev -->
+                        <!-- <slug:country>/<int:year>/<int:month>/<int:day>/<int:id>/<slug:slug> -->
+                        <a href="{% url 'post' prev_post.country.name|slugify prev_post.start_date|date:'Y' prev_post.start_date|date:'m' prev_post.start_date|date:'d' prev_post.id prev_post.slug %}" class="btn btn-outline-primary my-3 w-100 d-flex">
+                            <i class="fas fa-chevron-left fa-lg fa-fw fa-lg fs-2 flex-shrink-1 align-self-center"></i>
+                            <span class="w-100 align-self-center">
+                                PREVIOUS
+                                <br>
+                                <small class="fw-bold">{{ prev_post.title }}</small>
+                            </span>
+                        </a>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <!-- next -->
+                        <a href="{% url 'post' next_post.country.name|slugify next_post.start_date|date:'Y' next_post.start_date|date:'m' next_post.start_date|date:'d' next_post.id next_post.slug %}" class="btn btn-outline-primary my-3 w-100 d-flex">
+                            <span class="w-100 align-self-center">
+                                NEXT
+                                <br>
+                                <small class="fw-bold">{{ next_post.title }}</small>
+                            </span>
+                            <i class="fas fa-chevron-right fa-fw fa-lg fs-2 flex-shrink-1 align-self-center"></i>
+                        </a>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
