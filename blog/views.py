@@ -120,12 +120,25 @@ def post(request, country, year, month, day, id, slug):
     post.views += 1
     post.save()
 
+    # get previous post
+    prev_post = posts.filter(pk__lt=post.id).order_by("-pk").first()
+    if prev_post is None:
+        # viewing first post already, grab last from entire list
+        prev_post = posts.order_by("-pk").first()
+    # get next post
+    next_post = posts.filter(pk__gt=post.id).order_by("pk").first()
+    if next_post is None:
+        # viewing last post already, grab first from entire list
+        next_post = posts.order_by("pk").first()
+
     template = "blog/post.html"
     context = {
         "post": post,
         "images": images,
         "countries": countries,
         "months": months,
+        "prev_post": prev_post,
+        "next_post": next_post,
     }
     return render(request, template, context)
 
