@@ -12,14 +12,9 @@
     {% if images|length > 0 %}
         <!-- blog hero carousel -->
         <section id="blog-hero-carousel" class="shadow carousel slide carousel-fade m-0 p-0" data-bs-ride="carousel">
-            <div class="carousel-indicators">
-                {% for image in images %}
-                    <button type="button" data-bs-target="#blog-hero-carousel" data-bs-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active" aria-current="true"{% endif %} aria-label="Slide 1"></button>
-                {% endfor %}
-            </div>
             <div class="carousel-inner">
                 {% for image in images %}
-                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                    <div class="carousel-item {% if forloop.first %}active{% endif %}" data-bs-interval="2000">
                         <img src="{{ image.image.url }}" class="d-block w-100 img-fluid" alt="{{ image.post.title }}">
                         <div class="carousel-caption rounded-4">
                             <h2 class="d-none d-md-block">{{ image.post.title }}</h2>
@@ -35,14 +30,6 @@
                     </div>
                 {% endfor %}
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#blog-hero-carousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#blog-hero-carousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
         </section>
     {% endif %}
 
