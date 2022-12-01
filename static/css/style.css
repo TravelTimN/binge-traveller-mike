@@ -355,6 +355,50 @@ aside#overlay.hide {
     bottom: 0 !important;
 }
 
+a.btn-circle {
+    text-align: center;
+    width: 40px;
+    height: 40px;
+    padding: calc(40px / 7) 0;
+    border-radius: 50%;
+    color: rgba(var(--white), 1);
+    border: 3px solid transparent;
+    transition: all 0.2s ease-in-out;
+}
+
+a.btn-circle.facebook {
+    background-color: #1877f2;
+}
+
+a.btn-circle.twitter {
+    background-color: #1da1f2;
+}
+
+a.btn-circle.linkedin {
+    background-color: #0077b5;
+}
+
+a.btn-circle.facebook:focus-visible,
+a.btn-circle.facebook:hover {
+    color: #1877f2;
+    border: 3px inset #1877f2;
+    background-color: rgba(var(--white), 1);
+}
+
+a.btn-circle.twitter:focus-visible,
+a.btn-circle.twitter:hover {
+    color: #1da1f2;
+    border: 3px inset #1da1f2;
+    background-color: rgba(var(--white), 1);
+}
+
+a.btn-circle.linkedin:focus-visible,
+a.btn-circle.linkedin:hover {
+    color: #0077b5;
+    border: 3px inset #0077b5;
+    background-color: rgba(var(--white), 1);
+}
+
 /* MODAL */
 .modal {
     backdrop-filter: blur(3px);

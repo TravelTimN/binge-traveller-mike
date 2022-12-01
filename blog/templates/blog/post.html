@@ -59,10 +59,10 @@
                 <div class="row">
                     <div class="col-12 my-3">
                         <small>
-                            <i class="far fa-calendar-alt"></i>
+                            <i class="far fa-calendar-alt" aria-hidden="true"></i>
                             {{ post.date_created|date:"F d, Y" }}
                             <span class="mx-1 mx-md-3">|</span>
-                            <i class="fas fa-user"></i>
+                            <i class="fas fa-user" aria-hidden="true"></i>
                             Mike
                             <span class="mx-1 mx-md-3">|</span>
                             <img src="https://assets.2bn.dev/flags/icon/{{ post.country|lower }}.png" class="img-fluid" alt="Flag of {{ post.country.name }}">
@@ -70,12 +70,12 @@
                             {% if request.user.is_authenticated %}
                                 <span class="mx-1 mx-md-3">|</span>
                                 <a href="{% url 'post_edit' post.id %}" class="text-primary">
-                                    <i class="fas fa-edit"></i>
+                                    <i class="fas fa-edit" aria-hidden="true"></i>
                                     Edit
                                 </a>
                                 <span class="mx-1 mx-md-3">|</span>
                                 <a href="" class="text-danger">
-                                    <i class="fas fa-trash-alt"></i>
+                                    <i class="fas fa-trash-alt" aria-hidden="true"></i>
                                     Delete
                                 </a>
                             {% endif %}
@@ -86,45 +86,6 @@
                 <div class="row my-3">
                     <div class="col">
                         <h2 class="fs-1 fw-bold">{{ post.title }}</h2>
-                    </div>
-                </div>
-
-                <div class="row mb-5">
-                    <div class="col">
-                        <!-- share button -->
-                        <a class="btn btn-primary" id="share-btn">
-                            <span class="hide-on-small-and-down">SHARE</span>
-                            <i class="fas fa-share-alt" aria-hidden="true"></i></a>
-                        </a>
-                        <!-- share toast (success) -->
-                        <div aria-live="polite" aria-atomic="true" class="position-relative">
-                            <div class="toast-container position-fixed bottom-0 end-0 mb-5 pe-5">
-                                <div id="toast-success" class="toast bg-dark text-light" role="alert" aria-live="assertive" aria-atomic="true">
-                                    <div class="d-flex">
-                                        <div class="toast-body">
-                                            <i class="fas fa-clipboard-check text-success me-3"></i>
-                                            Copied to Clipboard
-                                        </div>
-                                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- share toast (error) -->
-                        <div aria-live="polite" aria-atomic="true" class="position-relative">
-                            <div class="toast-container position-fixed bottom-0 end-0 mb-5 pe-5">
-                                <div id="toast-error" class="toast bg-dark text-light" role="alert" aria-live="assertive" aria-atomic="true">
-                                    <div class="d-flex">
-                                        <div class="toast-body">
-                                            <i class="fas fa-exclamation-circle text-danger me-3"></i>
-                                            Error Copying to Clipboard
-                                        </div>
-                                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
 
@@ -147,6 +108,30 @@
                     {% endfor %}
                 </div>
 
+                <!-- share buttons -->
+                <hr class="w-25 mt-5">
+                <div class="row mb-5">
+                    <div class="col">
+                        <div class="row mb-3">
+                            <div class="col">
+                                Share this post:
+                            </div>
+                        </div>
+                        <!-- facebook -->
+                        <a href="" target="_blank" rel="external nofollow noreferrer noopener" data-url="https://www.facebook.com/sharer/sharer.php?u=" id="btn-share-facebook" class="btn btn-lg btn-circle facebook">
+                            <i class="fab fa-facebook-f fa-fw fa-lg" aria-hidden="true"></i>
+                        </a>
+                        <!-- twitter -->
+                        <a href="" target="_blank" rel="external nofollow noreferrer noopener" data-url="https://twitter.com/intent/tweet?url=" id="btn-share-twitter" class="btn btn-lg btn-circle twitter">
+                            <i class="fab fa-twitter fa-fw fa-lg" aria-hidden="true"></i>
+                        </a>
+                        <!-- linkedin -->
+                        <a href="" target="_blank" rel="external nofollow noreferrer noopener" data-url="https://www.linkedin.com/shareArticle?url=" id="btn-share-linkedin" class="btn btn-lg btn-circle linkedin">
+                            <i class="fab fa-linkedin-in fa-fw fa-lg" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+
                 <!-- previous and next blog posts -->
                 <hr>
                 <div class="row">
@@ -154,7 +139,7 @@
                         <!-- prev -->
                         <!-- <slug:country>/<int:year>/<int:month>/<int:day>/<int:id>/<slug:slug> -->
                         <a href="{% url 'post' prev_post.country.name|slugify prev_post.start_date|date:'Y' prev_post.start_date|date:'m' prev_post.start_date|date:'d' prev_post.id prev_post.slug %}" class="btn btn-outline-primary my-3 w-100 d-flex">
-                            <i class="fas fa-chevron-left fa-lg fa-fw fa-lg fs-2 flex-shrink-1 align-self-center"></i>
+                            <i class="fas fa-chevron-left fa-lg fa-fw fa-lg fs-2 flex-shrink-1 align-self-center" aria-hidden="true"></i>
                             <span class="w-100 align-self-center">
                                 PREVIOUS
                                 <br>
@@ -170,7 +155,7 @@
                                 <br>
                                 <small class="fw-bold">{{ next_post.title }}</small>
                             </span>
-                            <i class="fas fa-chevron-right fa-fw fa-lg fs-2 flex-shrink-1 align-self-center"></i>
+                            <i class="fas fa-chevron-right fa-fw fa-lg fs-2 flex-shrink-1 align-self-center" aria-hidden="true"></i>
                         </a>
                     </div>
                 </div>
@@ -187,20 +172,13 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     
     <script>
-        // share toast (bootstrap)
-        $("#share-btn").on("click", function() {
-            let postUrl = $(location).attr("href");
-            let textToCopy = postUrl;
-            navigator.clipboard.writeText(textToCopy).then(function() {
-                let shareToast = document.getElementById("toast-success");
-                let bsToast = new bootstrap.Toast(shareToast);
-                bsToast.show();
-            }, function(err) {
-                let shareToast = document.getElementById("toast-error");
-                let bsToast = new bootstrap.Toast(shareToast);
-                bsToast.show();
-                console.error("Error: could not copy text - ", err);
-            });
+        /* jshint esversion: 11, jquery: true */
+
+        // share button urls
+        let shareBtns = $("a[id^='btn-share-']");
+        $(shareBtns).each(function() {
+            let btnUrl = $(this).data("url") + $(location).attr("href");
+            $(this).attr("href", btnUrl);
         });
     </script>
 {% endblock %}
