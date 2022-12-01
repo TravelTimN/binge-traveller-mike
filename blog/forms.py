@@ -22,7 +22,7 @@ class PostForm(forms.ModelForm):
             "body": TinyMCE(),
         }
         fields = "__all__"
-        exclude = ("views", "date_created", "date_updated",)
+        exclude = ("max_images", "views", "date_created", "date_updated",)
 
     def __init__(self, *args, **kwargs):
         # https://stackoverflow.com/a/72025478
