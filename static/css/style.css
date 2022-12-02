@@ -639,6 +639,14 @@ figure.drinks-gallery-img:hover figcaption {
     object-fit: cover;
 }
 
+.fas.fa-beer {
+    text-shadow: 1px 1px 0 rgba(var(--black), 1);
+}
+
+.fas.fa-beer.text-muted {
+    opacity: 0.5;
+}
+
 /* PAGINATION */
 .page-link:focus {
     box-shadow: unset;
