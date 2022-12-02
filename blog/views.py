@@ -116,9 +116,10 @@ def post(request, country, year, month, day, id, slug):
     countries = get_country_list(posts)
     months = get_archive_months(posts)
 
-    # increment page views
-    post.views += 1
-    post.save()
+    # increment page views (only if not logged-in)
+    if not request.user.is_authenticated:
+        post.views += 1
+        post.save()
 
     # get previous post
     prev_post = posts.filter(pk__lt=post.id).order_by("-pk").first()
