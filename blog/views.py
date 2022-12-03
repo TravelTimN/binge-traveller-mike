@@ -170,6 +170,40 @@ def post_new(request):
 
 
 @validate_user()
+def post_edit(request, id):
+    """ A view to edit an existing blog post """
+    get_post = get_object_or_404(Post, id=id)
+    post_status = get_post.status  # is it published or draft previously?
+    post_form = PostForm(request.POST or None, instance=get_post)
+    if request.method == "POST":
+        if post_form.is_valid():
+            # if previously "draft", and is now "published", update dates
+            if post_status == "draft" and request.POST.get("status") == "published":
+                post_form.instance.date_created = timezone.now()
+                post_form.instance.date_updated = timezone.now()
+            # save the post form data
+            existing_post = post_form.save()
+
+            # grab new post data for redirect url
+            country = existing_post.country
+            year = existing_post.start_date.strftime("%Y")
+            month = existing_post.start_date.strftime("%m")
+            day = existing_post.start_date.strftime("%d")
+            post_id = existing_post.pk
+            slug = existing_post.slug
+            messages.success(request, f"{existing_post.title} updated!")
+            print(f"{existing_post.title} updated!")
+            return redirect(post, country, year, month, day, post_id, slug)
+        messages.error(request, "Error: Please Try Again.")
+    template = "blog/post_edit.html"
+    context = {
+        "post": get_post,
+        "post_form": post_form,
+    }
+    return render(request, template, context)
+
+
+@validate_user()
 def post_new_images(request, id):
     """ A view to add images to a new blog post """
     blog_post = get_object_or_404(Post, id=id)
@@ -201,34 +235,33 @@ def post_new_images(request, id):
 
 
 @validate_user()
-def post_edit(request, id):
-    """ A view to edit an existing blog post """
-    get_post = get_object_or_404(Post, id=id)
-    post_status = get_post.status  # is it published or draft previously?
-    post_form = PostForm(request.POST or None, instance=get_post)
+def post_edit_images(request, id):
+    """ A view to manage images on an existing blog post """
+    blog_post = get_object_or_404(Post, id=id)
+    blog_images = PostImage.objects.filter(post=blog_post)
     if request.method == "POST":
-        if post_form.is_valid():
-            # if previously "draft", and is now "published", update dates
-            if post_status == "draft" and request.POST.get("status") == "published":
-                post_form.instance.date_created = timezone.now()
-                post_form.instance.date_updated = timezone.now()
-            # save the post form data
-            existing_post = post_form.save()
 
-            # grab new post data for redirect url
-            country = existing_post.country
-            year = existing_post.start_date.strftime("%Y")
-            month = existing_post.start_date.strftime("%m")
-            day = existing_post.start_date.strftime("%d")
-            post_id = existing_post.pk
-            slug = existing_post.slug
-            messages.success(request, f"{existing_post.title} updated!")
-            print(f"{existing_post.title} updated!")
-            return redirect(post, country, year, month, day, post_id, slug)
-        messages.error(request, "Error: Please Try Again.")
-    template = "blog/post_edit.html"
+        # get each new image submitted
+        # (partial inspiration from YouTube - The Pylot)
+        imgs_length = request.POST.get("length")
+        images = []
+        for n in range(0, int(imgs_length)):
+            images.append(PostImage(
+                post=blog_post,
+                image=request.FILES.get(f"image-{n}")
+            ))
+        PostImage.objects.bulk_create(images)
+        messages.success(request, f"Images successfully updated!")
+        return redirect(
+            post, blog_post.country,
+            blog_post.start_date.strftime("%Y"),
+            blog_post.start_date.strftime("%m"),
+            blog_post.start_date.strftime("%d"),
+            blog_post.id, blog_post.slug
+        )
+    template = "blog/post_edit_images.html"
     context = {
-        "post": get_post,
-        "post_form": post_form,
+        "post": blog_post,
+        "images": blog_images,
     }
     return render(request, template, context)
