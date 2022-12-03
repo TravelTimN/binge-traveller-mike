@@ -192,7 +192,6 @@ def post_edit(request, id):
             post_id = existing_post.pk
             slug = existing_post.slug
             messages.success(request, f"{existing_post.title} updated!")
-            print(f"{existing_post.title} updated!")
             return redirect(post, country, year, month, day, post_id, slug)
         messages.error(request, "Error: Please Try Again.")
     template = "blog/post_edit.html"
