@@ -2,6 +2,7 @@ import random
 from django.shortcuts import get_object_or_404, render, redirect, reverse
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.utils import timezone
 from django_countries import countries as countrylist
 from .models import Post, PostImage
 from .forms import PostForm
@@ -38,8 +39,12 @@ def get_archive_months(posts):
 
 def blog(request):
     """ A view to return the blog page """
-    # grab only published blog posts
-    posts = Post.objects.filter(status="published")
+    if request.user.is_authenticated:
+        # superuser can view all blog posts
+        posts = Post.objects.all()
+    else:
+        # guests can view only published blog posts
+        posts = Post.objects.filter(status="published")
 
     # sidebar menus
     countries = get_country_list(posts)
@@ -103,7 +108,7 @@ def post(request, country, year, month, day, id, slug):
     """ A view to return a specific blog post details """
     # grab only the specific blog post
     post = get_object_or_404(Post, id=id)
-    if post.status != "published":
+    if post.status != "published" and not request.user.is_authenticated:
         messages.error(request, "Oops! That blog post is not available.")
         return redirect(reverse("blog"))
 
@@ -199,9 +204,14 @@ def post_new_images(request, id):
 def post_edit(request, id):
     """ A view to edit an existing blog post """
     get_post = get_object_or_404(Post, id=id)
+    post_status = get_post.status  # is it published or draft previously?
     post_form = PostForm(request.POST or None, instance=get_post)
     if request.method == "POST":
         if post_form.is_valid():
+            # if previously "draft", and is now "published", update dates
+            if post_status == "draft" and request.POST.get("status") == "published":
+                post_form.instance.date_created = timezone.now()
+                post_form.instance.date_updated = timezone.now()
             # save the post form data
             existing_post = post_form.save()
 
