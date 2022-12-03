@@ -639,6 +639,12 @@ figure.drinks-gallery-img:hover figcaption {
     object-fit: cover;
 }
 
+.image-thumb-edit {
+    min-height: 150px;
+    max-height: 150px;
+    object-fit: cover;
+}
+
 .fas.fa-beer {
     text-shadow: 1px 1px 0 rgba(var(--black), 1);
 }
