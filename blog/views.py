@@ -204,6 +204,15 @@ def post_edit(request, id):
 
 
 @validate_user()
+def post_delete(request, id):
+    """ A view to delete a single post, and cascade all related images """
+    post = get_object_or_404(Post, id=id)
+    post.delete()
+    messages.success(request, f"Post and images successfully deleted!")
+    return redirect(blog)
+
+
+@validate_user()
 def post_new_images(request, id):
     """ A view to add images to a new blog post """
     blog_post = get_object_or_404(Post, id=id)
