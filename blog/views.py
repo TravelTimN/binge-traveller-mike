@@ -265,3 +265,12 @@ def post_edit_images(request, id):
         "images": blog_images,
     }
     return render(request, template, context)
+
+
+@validate_user()
+def post_delete_image(request, post_id, img_id):
+    """ A view to delete a single exiting image """
+    image = get_object_or_404(PostImage, id=img_id)
+    image.delete()
+    messages.success(request, f"Image successfully deleted!")
+    return redirect(post_edit_images, post_id)

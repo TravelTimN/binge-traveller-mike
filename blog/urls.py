@@ -8,9 +8,17 @@ urlpatterns = [
         views.post, name="post"
     ),
     path("post/new/", views.post_new, name="post_new"),
+    path("post/edit/<int:id>/", views.post_edit, name="post_edit"),
     path(
         "post/new/images/<int:id>/",
         views.post_new_images, name="post_new_images"
     ),
-    path("post/edit/<int:id>/", views.post_edit, name="post_edit"),
+    path(
+        "post/edit/images/<int:id>/",
+        views.post_edit_images, name="post_edit_images"
+    ),
+    path(
+        "post/delete/image/<int:post_id>/<int:img_id>/",
+        views.post_delete_image, name="post_delete_image"
+    ),
 ]
