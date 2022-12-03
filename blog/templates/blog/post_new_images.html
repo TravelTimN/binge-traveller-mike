@@ -71,13 +71,18 @@
 <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
 
 <script>
-/* jshint esversion: 11 */
+/* jshint esversion: 11, jquery: true */
 $(document).ready(function() {
 
     // filepond image uploads (partial inspiration: YouTube - The Pylot)
     let images = [];
-    let maxImages = parseInt("{{ post.max_images }}");
+    let imagesRemainSpan = $("#images-remaining");
+    let currentImgCount = parseInt("{{ images|length }}");
+    let absoluteMaxImages = parseInt("{{ post.max_images }}");
+    let maxImages = absoluteMaxImages - currentImgCount;
+    $(imagesRemainSpan).text(maxImages);
     const imageInput = document.getElementById("image-upload");
+
     FilePond.registerPlugin(
         FilePondPluginImagePreview,
         FilePondPluginFileValidateSize,
@@ -118,19 +123,20 @@ $(document).ready(function() {
     }
 
     // advise how many remaining images available
+    updateImgsLen();
     function updateImgsLen() {
         let imageCounterDiv = $("#image-counter");
         let imageCountBtn = $("#image-count-btn");
-        let imagesRemainSpan = $("#images-remaining");
         let imagesRemaining = maxImages - images.length;
+
         // update alert-color based on number of images (remove class starting with "alert-")
-        if ((images.length / maxImages) * 100 >= 75) {
-            // at least 75% used
+        if (((currentImgCount + images.length) / absoluteMaxImages) * 100 >= 75) {
+            // at least 75% used (only 25% remaining --- danger)
             $(imageCounterDiv).removeClass(function(i, className) {
                 return (className.match(/(^|\s)alert-\S+/g) || []).join(" ");
             }).addClass("alert-danger");
-        } else if ((images.length / maxImages) * 100 >= 50) {
-            // at least 50% used
+        } else if (((currentImgCount + images.length) / absoluteMaxImages) * 100 >= 50) {
+            // at least 50% used (only 50% remaining --- warning)
             $(imageCounterDiv).removeClass(function(i, className) {
                 return (className.match(/(^|\s)alert-\S+/g) || []).join(" ");
             }).addClass("alert-warning");

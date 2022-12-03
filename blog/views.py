@@ -170,37 +170,6 @@ def post_new(request):
 
 
 @validate_user()
-def post_new_images(request, id):
-    """ A view to add images to a new blog post """
-    blog_post = get_object_or_404(Post, id=id)
-    if request.method == "POST":
-
-        # get each image submitted
-        # (partial inspiration from YouTube - The Pylot)
-        imgs_length = request.POST.get("length")
-        images = []
-        for n in range(0, int(imgs_length)):
-            images.append(PostImage(
-                post=blog_post,
-                image=request.FILES.get(f"image-{n}")
-            ))
-        PostImage.objects.bulk_create(images)
-        messages.success(request, f"{imgs_length} images added!")
-        return redirect(
-            post, blog_post.country,
-            blog_post.start_date.strftime("%Y"),
-            blog_post.start_date.strftime("%m"),
-            blog_post.start_date.strftime("%d"),
-            blog_post.id, blog_post.slug
-        )
-    template = "blog/post_new_images.html"
-    context = {
-        "post": blog_post,
-    }
-    return render(request, template, context)
-
-
-@validate_user()
 def post_edit(request, id):
     """ A view to edit an existing blog post """
     get_post = get_object_or_404(Post, id=id)
@@ -232,3 +201,76 @@ def post_edit(request, id):
         "post_form": post_form,
     }
     return render(request, template, context)
+
+
+@validate_user()
+def post_new_images(request, id):
+    """ A view to add images to a new blog post """
+    blog_post = get_object_or_404(Post, id=id)
+    if request.method == "POST":
+
+        # get each image submitted
+        # (partial inspiration from YouTube - The Pylot)
+        imgs_length = request.POST.get("length")
+        images = []
+        for n in range(0, int(imgs_length)):
+            images.append(PostImage(
+                post=blog_post,
+                image=request.FILES.get(f"image-{n}")
+            ))
+        PostImage.objects.bulk_create(images)
+        messages.success(request, f"{imgs_length} images added!")
+        return redirect(
+            post, blog_post.country,
+            blog_post.start_date.strftime("%Y"),
+            blog_post.start_date.strftime("%m"),
+            blog_post.start_date.strftime("%d"),
+            blog_post.id, blog_post.slug
+        )
+    template = "blog/post_new_images.html"
+    context = {
+        "post": blog_post,
+    }
+    return render(request, template, context)
+
+
+@validate_user()
+def post_edit_images(request, id):
+    """ A view to manage images on an existing blog post """
+    blog_post = get_object_or_404(Post, id=id)
+    blog_images = PostImage.objects.filter(post=blog_post)
+    if request.method == "POST":
+
+        # get each new image submitted
+        # (partial inspiration from YouTube - The Pylot)
+        imgs_length = request.POST.get("length")
+        images = []
+        for n in range(0, int(imgs_length)):
+            images.append(PostImage(
+                post=blog_post,
+                image=request.FILES.get(f"image-{n}")
+            ))
+        PostImage.objects.bulk_create(images)
+        messages.success(request, f"Images successfully updated!")
+        return redirect(
+            post, blog_post.country,
+            blog_post.start_date.strftime("%Y"),
+            blog_post.start_date.strftime("%m"),
+            blog_post.start_date.strftime("%d"),
+            blog_post.id, blog_post.slug
+        )
+    template = "blog/post_edit_images.html"
+    context = {
+        "post": blog_post,
+        "images": blog_images,
+    }
+    return render(request, template, context)
+
+
+@validate_user()
+def post_delete_image(request, post_id, img_id):
+    """ A view to delete a single exiting image """
+    image = get_object_or_404(PostImage, id=img_id)
+    image.delete()
+    messages.success(request, f"Image successfully deleted!")
+    return redirect(post_edit_images, post_id)
