@@ -56,6 +56,12 @@
                     {% endfor %}
                 </div>
 
+                {% if request.user.is_authenticated and post.status != "published" %}
+                    <div class="alert alert-warning text-center border border-dark" role="alert">
+                        D R A F T
+                    </div>
+                {% endif %}
+
                 <div class="row">
                     <div class="col-12 my-3">
                         <small>
