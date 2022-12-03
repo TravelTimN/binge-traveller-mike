@@ -312,7 +312,7 @@ aside#overlay.hide {
     height: 76px;
 }
 
-.alert:not(#form-errors):not(#image-counter) {
+#alerts .alert {
     width: 100%;
     z-index: 1002;
     margin-bottom: 2px;
