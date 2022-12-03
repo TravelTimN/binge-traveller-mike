@@ -57,6 +57,11 @@
                                 <!-- even forloop.counter gets "order-md-1" -->
                                 <div class="col-md-8 d-flex flex-column order-2 {% if forloop.counter|divisibleby:2 %}order-md-1{% endif %}">
                                     <div class="card-body">
+                                        {% if request.user.is_authenticated and blog.post.status != "published" %}
+                                            <div class="alert alert-warning text-center border border-dark" role="alert">
+                                                D R A F T
+                                            </div>
+                                        {% endif %}
                                         <h6 class="text-bt-primary">
                                             <small>
                                                 {{ blog.post.date_created|date:"F d, Y" }}

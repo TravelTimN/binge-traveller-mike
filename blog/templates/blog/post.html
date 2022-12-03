@@ -20,9 +20,9 @@
                             <h2 class="d-none d-md-block">{{ image.post.title }}</h2>
                             <h5 class="d-md-none">{{ image.post.title }}</h5>
                             <p class="p-0 m-0">
-                                <a href="{% url 'home' %}" class="d-none d-md-inline-block">Home</a>
+                                <a href="{% url 'home' %}" class="d-none d-md-inline-block text-bt-primary">Home</a>
                                 <span class="d-none d-md-inline-block mx-3">|</span>
-                                <a href="{% url 'blog' %}#blogs" class="d-none d-md-inline-block">Blog</a>
+                                <a href="{% url 'blog' %}#blogs" class="d-none d-md-inline-block text-bt-primary">Blog</a>
                                 <span class="d-none d-md-inline-block mx-3">|</span>
                                 <a href="{% url 'blog' %}?country={{ image.post.country }}#blogs" class="text-bt-primary">{{ image.post.country.name }}</a>
                             </p>
@@ -56,9 +56,16 @@
                     {% endfor %}
                 </div>
 
+                {% if request.user.is_authenticated and post.status != "published" %}
+                    <div class="alert alert-warning text-center border border-dark" role="alert">
+                        D R A F T
+                    </div>
+                {% endif %}
+
                 <div class="row">
                     <div class="col-12 my-3">
                         <small>
+                            <!-- travel dates -->
                             <i class="far fa-calendar-alt" aria-hidden="true"></i>
                             {{ post.start_date|date:"M" }} {{ post.start_date|date:"d" }}
                             {% if post.start_date|date:"M" == post.end_date|date:"M" %}
@@ -70,23 +77,48 @@
                                 to {{ post.end_date|date:"M" }} {{ post.end_date|date:"d" }}, {{ post.end_date|date:"Y" }}
                             {% endif %}
                             <span class="mx-1 mx-md-3">|</span>
-                            <i class="fas fa-user" aria-hidden="true"></i>
-                            Mike
-                            <span class="mx-1 mx-md-3">|</span>
+                            <!-- destination/country -->
                             <img src="https://assets.2bn.dev/flags/icon/{{ post.country|lower }}.png" class="img-fluid" alt="Flag of {{ post.country.name }}">
                             {{ post.destination }}, {{ post.country.name }}
                         </small>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12 mb-3">
+                    <div class="col-12 mb-2">
+                        <!-- airline, route, and airports -->
                         <i class="fas fa-plane" aria-hidden="true"></i>
                         {{ post.airline }}, {{ post.route_type }} from {{ post.departure_airport }} to {{ post.arrival_airport }}
                     </div>
                 </div>
+                <!-- beer rating -->
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        {% spaceless %}
+                            {% for beer in "1234567890"|make_list %}
+                                {% if forloop.counter <= post.rating|add:"0" %}
+                                    <span class="badge rounded-pill m-0 p-0">
+                                        <i class="fas fa-beer fa-fw fa-lg text-warning" aria-hidden="true"></i>
+                                    </span>
+                                {% else %}
+                                    <span class="badge rounded-pill m-0 p-0">
+                                        <i class="fas fa-beer fa-fw fa-lg text-muted" aria-hidden="true"></i>
+                                    </span>
+                                {% endif %}
+                            {% endfor %}
+                        {% endspaceless %}
+                        <small class="text-muted">
+                            (rating: <strong>{{ post.rating }}</strong>/10 beers)
+                        </small>
+                    </div>
+                </div>
+
                 {% if request.user.is_authenticated %}
+                    <hr>
+                    <!-- admin-only edit/delete buttons -->
                     <div class="row">
                         <div class="col my-3">
+                            <i class="fas fa-street-view fa-fw fa-lg" aria-hidden="true"></i> {{ post.views }} views
+                            <span class="mx-1 mx-md-3">|</span>
                             <a href="{% url 'post_edit' post.id %}" class="text-primary">
                                 <i class="fas fa-edit" aria-hidden="true"></i>
                                 Edit
@@ -100,16 +132,21 @@
                     </div>
                 {% endif %}
 
+                <hr>
+
                 <div class="row my-3">
                     <div class="col">
+                        <!-- blog post title -->
                         <h2 class="fs-1 fw-bold">{{ post.title }}</h2>
                         {{ post.date_created|date:"F d, Y" }}
+                        <!-- date created (and updated, if different) -->
                         {% if post.date_updated|date:"F d, Y" != post.date_created|date:"F d, Y" %}
                             <small class="text-muted">(updated: {{ post.date_updated|date:"F d, Y" }})</small>
                         {% endif %}
                     </div>
                 </div>
 
+                <!-- blog post body -->
                 <div class="row">
                     <div class="col">
                         {{ post.body|safe }}

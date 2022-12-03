@@ -312,7 +312,7 @@ aside#overlay.hide {
     height: 76px;
 }
 
-.alert:not(#form-errors):not(#image-counter) {
+#alerts .alert {
     width: 100%;
     z-index: 1002;
     margin-bottom: 2px;
@@ -637,6 +637,14 @@ figure.drinks-gallery-img:hover figcaption {
 
 .blog-image-thumb {
     object-fit: cover;
+}
+
+.fas.fa-beer {
+    text-shadow: 1px 1px 0 rgba(var(--black), 1);
+}
+
+.fas.fa-beer.text-muted {
+    opacity: 0.5;
 }
 
 /* PAGINATION */

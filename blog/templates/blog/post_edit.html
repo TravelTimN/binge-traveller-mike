@@ -201,7 +201,7 @@
                                 <!-- submit form -->
                                 <button class="btn btn-primary" id="sbmit-btn">Submit</button>
                                 <!-- cancel button -->
-                                <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-danger">Cancel</a>
+                                <a href="{% url 'post' post.country.name|slugify post.start_date|date:'Y' post.start_date|date:'m' post.start_date|date:'d' post.id post.slug %}" class="btn btn-danger">Cancel</a>
                             </div>
                         </div>
                     </div>
