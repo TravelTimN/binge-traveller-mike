@@ -115,12 +115,11 @@ ADMIN_EMAILS = os.environ.get("ADMIN_EMAILS")
 ACCOUNT_ADAPTER = "accounts.adapter.RestrictEmailAdapter"
 
 ACCOUNT_AUTHENTICATION_METHOD = "username_email"
-ACCOUNT_EMAIL_VERIFICATION = "none"  # TODO: enable?
+ACCOUNT_EMAIL_VERIFICATION = "none"
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_UNIQUE_EMAIL = True
-# LOGIN_REDIRECT_URL = "/profile/"  # TODO: create admin page?
 LOGIN_REDIRECT_URL = "/"
 LOGIN_URL = f"/{os.environ.get('AUTH_URL')}/login"
 ACCOUNT_LOGOUT_REDIRECT_URL = f"/{os.environ.get('AUTH_URL')}/login"
