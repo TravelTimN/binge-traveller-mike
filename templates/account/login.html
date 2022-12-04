@@ -1,20 +1,85 @@
 {% extends "base.html" %}
 {% load i18n %}
 
-{% block head_title %}{% trans "Sign In" %}{% endblock %}
-
 {% block content %}
 
-<h1>{% trans "Sign In" %}</h1>
+<div class="container">
+	<div class="row">
 
-<form class="login" method="POST" action="{% url 'account_login' %}">
-  {% csrf_token %}
-  {{ form.as_p }}
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-  {% endif %}
-  <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
-  <button class="primaryAction" type="submit">{% trans "Sign In" %}</button>
-</form>
+		<div class="col-12 col-md-10 col-lg-8 col-xl-6 mx-auto">
 
+			<!-- login form -->
+			<form method="POST" action="{% url 'account_login' %}" class="my-5 mx-3 py-md-5" id="login-form">
+
+				<!-- CSRF Token -->
+				{% csrf_token %}
+
+				<fieldset class="card shadow bg-bt-primary-darkest text-light">
+					<legend class="card-header text-center">{% trans "Login" %}</legend>
+
+					<div class="card-body bg-light text-dark">
+
+						<!-- form errors (if applicable) -->
+						{% if form.errors %}
+						<div id="form-errors" class="alert alert-danger w-100 mb-3">
+							{% for key, value in form.errors.items %}
+								Error:
+								{{ value|escape }}
+							{% endfor %}
+						</div>
+						{% endif %}
+
+						<!-- email field -->
+						<div class="input-group mb-3">
+							<span class="input-group-text bg-secondary bg-opacity-25 text-dark d-none d-md-flex">
+								<i class="fas fa-at fa-fw" aria-hidden="true"></i>
+							</span>
+							<div class="form-floating flex-grow-1">
+								{{ form.login }}
+								<label for="id_login">* Email Address</label>
+							</div>
+						</div>
+
+						<!-- password field -->
+						<div class="input-group mb-3">
+							<span class="input-group-text bg-secondary bg-opacity-25 text-dark d-none d-md-flex">
+								<i class="fas fa-lock fa-fw" aria-hidden="true"></i>
+							</span>
+							<div class="form-floating flex-grow-1">
+								{{ form.password }}
+								<label for="id_password">* Password</label>
+							</div>
+						</div>
+
+						<!-- hidden redirect field (if applicable) -->
+						{% if redirect_field_value %}
+							<input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}">
+						{% endif %}
+
+					</div>
+
+					<div class="card-footer bg-bt-primary">
+						<div class="row">
+							<div class="col text-center mx-auto">
+								<!-- login btn -->
+								<button class="btn btn-primary" type="submit">{% trans "Login" %}</button>
+							</div>
+						</div>
+					</div>
+
+				</fieldset>
+
+			</form>
+		</div>
+
+	</div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+	<script>
+		// add "form-control" class to fields in lieu of creating forms.py for custom signup
+		$("#id_login, #id_password").addClass("form-control");
+	</script>
 {% endblock %}
