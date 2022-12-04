@@ -44,7 +44,7 @@
                         <div class="col-12 card blog-card mb-5 mx-0 p-0 shadow">
                             <div class="row g-0">
                                 <!-- even forloop.counter gets "order-md-2" -->
-                                <div class="col-md-4 order-1 {% if forloop.counter|divisibleby:2 %}order-md-2{% endif %}">
+                                <div class="col-md-4 order-1 bg-bt-primary-dark {% if forloop.counter|divisibleby:2 %}order-md-2{% endif %}">
                                     <div class="blog-card-img-wrapper">
                                         <img src="{{ blog.img.image.url }}"
                                             class="img-fluid blog-card-img bg-white" alt="Flag of {{ post.country.name }}"
@@ -68,7 +68,7 @@
                                             </small>
                                         </h6>
                                         <h5 class="card-title fw-bold">
-                                            <a href="">
+                                            <a href="{% url 'post' blog.post.country.name|slugify|lower blog.post.date_created|date:'Y' blog.post.date_created|date:'m' blog.post.date_created|date:'d' blog.post.id blog.post.slug %}">
                                                 {{ blog.post.title }}
                                             </a>
                                         </h5>
