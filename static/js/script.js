@@ -1,13 +1,4 @@
-/* ----- jshint esversion: 11, jquery: true ----- */
-
-
-/* ----- BOOTSTRAP COMPONENTS ----- */
-
-// tooltips
-let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-    return new bootstrap.Tooltip(tooltipTriggerEl);
-});
+/* jshint esversion: 11, jquery: true */
 
 
 /* ----- PRELOADER ----- */
