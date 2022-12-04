@@ -1,13 +1,4 @@
-/* ----- jshint esversion: 11, jquery: true ----- */
-
-
-/* ----- BOOTSTRAP COMPONENTS ----- */
-
-// tooltips
-let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-    return new bootstrap.Tooltip(tooltipTriggerEl);
-});
+/* jshint esversion: 11, jquery: true */
 
 
 /* ----- PRELOADER ----- */
@@ -60,20 +51,14 @@ btnTop.addEventListener("click", function (e) {
 let activeLink;
 if (location.pathname.includes("/about/")) {
     activeLink = "about";
-} else if (location.pathname.includes("/destinations/")) {
-    activeLink = "destinations";
-} else if (location.pathname.includes("/faqs/")) {
-    activeLink = "faqs";
-} else if (location.pathname.includes("/gallery/")) {
-    activeLink = "gallery";
-} else if (location.pathname.includes("/resources/")) {
-    activeLink = "resources";
-} else if (location.pathname.includes("/reviews/")) {
-    activeLink = "reviews";
 } else if (location.pathname.includes("/contact/")) {
     activeLink = "contact";
-} else if (location.pathname.includes("/bookings/")) {
-    activeLink = "bookings";
+} else if (location.pathname.includes("/blog/post/new/")) {
+    activeLink = "new-post";
+} else if (location.pathname.includes("/blog/")) {
+    activeLink = "blog";
+} else if (location.pathname.includes("/login/")) {
+    activeLink = "login";
 } else {
     activeLink = "home";
 }

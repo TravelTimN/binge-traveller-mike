@@ -17,7 +17,7 @@
             <!-- desktop nav links -->
             <ul class="navbar-nav ms-auto d-none d-lg-flex font-spinnaker">
                 <li class="nav-item">
-                    <a class="nav-link mx-2" href="{% url 'home' %}"><i class="fas fa-home fa-fw fa-lg"></i></a>
+                    <a class="nav-link mx-2" href="{% url 'home' %}"><i class="fas fa-home fa-fw fa-lg" aria-hidden="true"></i></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link mx-2" href="{% url 'about' %}">About</a>
@@ -34,19 +34,21 @@
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0 font-spinnaker">
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="fas fa-user-cog fa-fw fa-lg"></i>
+                                    <i class="fas fa-user-cog fa-fw fa-lg" aria-hidden="true"></i>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark">
-                                    {% if request.user|has_group:"Site Admin" %}
-                                        <!-- user is a Site Admin -->
-                                        <li><a class="dropdown-item" href="#">Manage Blog</a></li>
-                                        <li><a class="dropdown-item" href="{% url 'post_new' %}">New Blog Post</a></li>
-                                    {% endif %}
                                     {% if request.user.is_superuser %}
                                         <!-- user is superuser/dev -->
-                                        <li><a class="dropdown-item" href="{% url 'admin:index' %}" target="_blank" rel="noopener">Django Admin</a></li>
+                                        <li class="dropdown-item divider bg-bt-primary-light text-dark">SUPERUSER</li>
+                                        <li class="mb-3"><a class="dropdown-item" href="{% url 'admin:index' %}" target="_blank" rel="noopener">Django Admin</a></li>
+                                        <!-- <li><hr class="dropdown-divider bg-bt-primary-light"></li> -->
                                     {% endif %}
-                                    <li><hr class="dropdown-divider"></li>
+                                    {% if request.user|has_group:"Site Admin" %}
+                                        <!-- user is a Site Admin -->
+                                        <li class="dropdown-item divider bg-bt-primary-light text-dark">ADMIN</li>
+                                        <li><a class="dropdown-item" href="{% url 'post_new' %}">New Blog Post</a></li>
+                                    {% endif %}
+                                    <li><hr class="dropdown-divider bg-bt-primary-light"></li>
                                     <li><a class="dropdown-item" href="{% url 'account_logout' %}">Logout</a></li>
                                 </ul>
                             </li>
@@ -55,7 +57,7 @@
                 {% else %}
                     <li class="nav-item ms-3">
                         <a class="nav-link" href="{% url 'account_login' %}">
-                            <i class="fas fa-user fa-fw fa-lg"></i>
+                            <i class="fas fa-user fa-fw fa-lg" aria-hidden="true"></i>
                         </a>
                     </li>
                 {% endif %}
@@ -65,7 +67,7 @@
                     <!-- offcanvas toggle button -->
                     <button id="offcanvas-toggle-btn" class="btn btn-dark d-block d-lg-none" type="button" data-bs-toggle="offcanvas"
                         data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                        <i class="fas fa-bars"></i>
+                        <i class="fas fa-bars" aria-hidden="true"></i>
                     </button>
                 </li>
             </ul>
@@ -88,48 +90,52 @@
         <!-- links -->
         <div id="offcanvas-list-group" class="list-group list-group-flush font-spinnaker">
             <a href="{% url 'home' %}" class="list-group-item list-group-item-action list-group-item-secondary border-0" id="nav-link-home">
-                <i class="fas fa-home fa-fw fs-5 me-3"></i>
+                <i class="fas fa-home fa-fw fs-5 me-3" aria-hidden="true"></i>
                 Home
             </a>
             <a href="{% url 'about' %}" class="list-group-item list-group-item-action list-group-item-secondary border-0" id="nav-link-about">
-                <i class="fas fa-info-circle fa-fw fs-5 me-3"></i>
+                <i class="fas fa-info-circle fa-fw fs-5 me-3" aria-hidden="true"></i>
                 About Me
             </a>
             <a href="{% url 'blog' %}" class="list-group-item list-group-item-action list-group-item-secondary border-0" id="nav-link-blog">
-                <i class="fas fa-blog fa-fw fs-5 me-3"></i>
+                <i class="fas fa-blog fa-fw fs-5 me-3" aria-hidden="true"></i>
                 Blog
             </a>
             <a href="{% url 'contact' %}" class="list-group-item list-group-item-action list-group-item-secondary border-0" id="nav-link-contact">
-                <i class="fas fa-at fa-fw fs-5 me-3"></i>
+                <i class="fas fa-at fa-fw fs-5 me-3" aria-hidden="true"></i>
                 Contact
             </a>
 
             {% if request.user.is_authenticated %}
                 <!-- user is logged-in -->
-                <span class="list-group-item bg-bt-primary-dark text-white text-center">ADMIN</span>
+                {% if request.user.is_superuser %}
+                    <!-- user is superuser/dev -->
+                    <span class="list-group-item divider bg-bt-primary-dark text-white text-center">SUPERUSER</span>
+                    <a href="{% url 'admin:index' %}" class="list-group-item list-group-item-action list-group-item-secondary border-0"
+                        target="_blank" rel="noopener">
+                        <i class="fas fa-user-cog fa-fw fs-5 me-3" aria-hidden="true"></i>
+                        Django Admin
+                    </a>
+                {% endif %} 
+                <span class="list-group-item divider bg-bt-primary-dark text-white text-center">ADMIN</span>
                 {% if request.user|has_group:"Site Admin" %}
                     <!-- user is a Site Admin -->
-                    <a href="" class="list-group-item list-group-item-action list-group-item-secondary border-0" id="nav-link-manage">
-                        <i class="fas fa-tasks fa-fw fs-5 me-3"></i>
-                        Manage Blog
-                    </a>
                     <a href="{% url 'post_new' %}" class="list-group-item list-group-item-action list-group-item-secondary border-0" id="nav-link-new-post">
-                        <i class="fas fa-tasks fa-fw fs-5 me-3"></i>
+                        <i class="fas fa-tasks fa-fw fs-5 me-3" aria-hidden="true"></i>
                         New Blog Post
                     </a>
                 {% endif %}
-                {% if request.user.is_superuser %}
-                    <!-- user is superuser/dev -->
-                    <a href="{% url 'admin:index' %}" class="list-group-item list-group-item-action list-group-item-secondary border-0"
-                        target="_blank" rel="noopener">
-                        <i class="fas fa-user-cog fa-fw fs-5 me-3"></i>
-                        Django Admin
-                    </a>
-                {% endif %}
                 <a href="{% url 'account_logout' %}" class="list-group-item list-group-item-action list-group-item-secondary border-0">
-                    <i class="fas fa-sign-out-alt fa-fw fs-5 me-3"></i>
+                    <i class="fas fa-sign-out-alt fa-fw fs-5 me-3" aria-hidden="true"></i>
                     Logout
                 </a>
+            {% else %}
+                <span class="list-group-item divider bg-bt-primary-dark text-white text-center">ADMIN</span>
+                <a href="{% url 'account_login' %}" class="list-group-item list-group-item-action list-group-item-secondary border-0" id="nav-link-login">
+                    <i class="fas fa-user fa-fw fs-5 me-3" aria-hidden="true"></i>
+                    Login
+                </a>
+                
             {% endif %}
 
         </div>
