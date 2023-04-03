@@ -46,9 +46,13 @@
                                 <!-- even forloop.counter gets "order-md-2" -->
                                 <div class="col-md-4 order-1 bg-bt-primary-dark {% if forloop.counter|divisibleby:2 %}order-md-2{% endif %}">
                                     <div class="blog-card-img-wrapper">
-                                        <img src="{{ blog.img.image.url }}"
-                                            class="img-fluid blog-card-img bg-white" alt="Flag of {{ post.country.name }}"
-                                            onError="this.onerror=null;this.src='{{ MEDIA_URL }}no-image.png';">
+                                        {% if not blog.img %}
+                                            <img src="{{ MEDIA_URL }}no-image.png" class="img-fluid blog-card-img bg-white" alt="No Image Available">
+                                        {% else %}
+                                            <img src="{{ blog.img.image.url }}"
+                                                class="img-fluid blog-card-img bg-white" alt="Randomized image from {{ blog.post.country.name }} blog post"
+                                                onError="this.onerror=null;this.src='{{ MEDIA_URL }}no-image.png';">
+                                        {% endif %}
                                         <span class="blog-card-img-text fw-bold text-white text-uppercase text-center text-shadow p-2">
                                             {{ blog.post.country.name }}
                                         </span>
