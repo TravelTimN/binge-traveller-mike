@@ -574,6 +574,7 @@ img.leaflet-marker-icon {
     margin: -1em !important;
     border: 2px solid rgba(var(--white), 1);
     box-shadow: 2px 2px 2px rgba(var(--black), 0.5);
+    object-fit: cover;
 }
 
 .leaflet-popup {
