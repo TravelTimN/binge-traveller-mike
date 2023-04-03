@@ -565,7 +565,6 @@ figure.drinks-gallery-img:hover figcaption {
 
 .leaflet-popup-content a {
     font-size: 1.5em;
-    color: rgba(var(--bt-primary-darkest), 1);
     text-shadow: 2px 2px 2px rgba(var(--white), 0.5);
 }
 
@@ -575,6 +574,16 @@ img.leaflet-marker-icon {
     border: 2px solid rgba(var(--white), 1);
     box-shadow: 2px 2px 2px rgba(var(--black), 0.5);
     object-fit: cover;
+    transition: all 0.2s ease-in-out;
+}
+
+img.leaflet-marker-icon:hover {
+    border-radius: 0;
+    width: 50px !important;
+    margin-left: -26px !important;
+    height: 30px !important;
+    z-index: 500 !important;
+    margin-top: -15px !important;
 }
 
 .leaflet-popup {
