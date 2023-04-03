@@ -15,7 +15,7 @@
             <div class="carousel-inner">
                 {% for image in images %}
                     <div class="carousel-item {% if forloop.first %}active{% endif %}" data-bs-interval="2000">
-                        <img src="{{ image.image.url }}" class="d-block w-100 img-fluid" alt="{{ image.post.title }}">
+                        <img src="{{ image.image.url }}" class="d-block w-100 img-fluid" alt="{{ image.post.title }}" onError="this.onerror=null;this.src='{{ MEDIA_URL }}no-image.png';">
                         <div class="carousel-caption rounded-4">
                             <h2 class="d-none d-md-block">{{ image.post.title }}</h2>
                             <h5 class="d-md-none">{{ image.post.title }}</h5>
@@ -49,7 +49,7 @@
                         {% if forloop.counter <= 3 %}
                             <div class="col-4 mb-3">
                                 <a href="{{ image.image.url }}" data-lightbox="{{ image.post.slug }}">
-                                    <img src="{{ image.image.url }}" class="img-fluid h-100 blog-image-thumb" alt="{{ image.post.title }}">
+                                    <img src="{{ image.image.url }}" class="img-fluid h-100 blog-image-thumb" alt="{{ image.post.title }}" onError="this.onerror=null;this.src='{{ MEDIA_URL }}no-image.png';">
                                 </a>
                             </div>
                         {% endif %}
@@ -198,7 +198,7 @@
                         {% if forloop.counter > 3 %}
                             <div class="col-4 mb-3">
                                 <a href="{{ image.image.url }}" data-lightbox="{{ image.post.slug }}">
-                                    <img src="{{ image.image.url }}" class="img-fluid h-100 blog-image-thumb" alt="{{ image.post.title }}">
+                                    <img src="{{ image.image.url }}" class="img-fluid h-100 blog-image-thumb" alt="{{ image.post.title }}" onError="this.onerror=null;this.src='{{ MEDIA_URL }}no-image.png';">
                                 </a>
                             </div>
                         {% endif %}
