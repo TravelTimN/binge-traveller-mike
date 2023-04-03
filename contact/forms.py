@@ -48,5 +48,6 @@ class ContactForm(forms.Form):
         # add placeholder for floating-labels, and form-control class
         for field in self.fields:
             this_widget = self.fields[field].widget
-            this_widget.attrs["placeholder"] = field
             this_widget.attrs["class"] = "form-control"
+            if field != "country":
+                this_widget.attrs["placeholder"] = field
